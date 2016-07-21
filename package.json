@@ -20,6 +20,7 @@
     "config": "latest",
     "event-stream": "latest",
     "express": "latest",
+    "forever": "latest",
     "joi": "latest",
     "lodash": "latest",
     "moment": "latest",
