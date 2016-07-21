@@ -1,0 +1,27 @@
+{
+  "apache": {
+    "documentRoot": "/var/www/html",
+    "logDirectory": "/usr/local/var/apache2/log"
+  },
+  "app": {
+    "https": false,
+    "port": 2000
+  },
+  "cookie": {
+    "secret": "String to encrypt the cookies with. Change me in production"
+  },
+  "db": {
+    "database": "cloudlrs",
+    "username": "cloudlrs",
+    "password": "cloudlrs",
+    "host": "localhost",
+    "port": 5432,
+    "dropOnStartup": false,
+    "version": "9.3.5",
+    "sync": true
+  },
+  "log": {
+    "level": "info",
+    "stream": "stdout"
+  }
+}

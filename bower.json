@@ -1,0 +1,22 @@
+{
+  "name": "cloud-lrs",
+  "description": "Cloud-based Learning Record Store",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ets-berkeley-edu/cloud-lrs.git"
+  },
+  "dependencies": {
+    "angular": "latest",
+    "angular-aria": "latest",
+    "angular-ui-router": "latest",
+    "angular-ui-switch": "latest",
+    "bootstrap": "latest",
+    "fontawesome": "latest",
+    "highcharts": "latest",
+    "highcharts-ng": "latest",
+    "jquery": "latest",
+    "lodash": "latest",
+    "moment": "latest"
+  }
+}

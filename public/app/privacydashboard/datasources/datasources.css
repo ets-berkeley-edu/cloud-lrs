@@ -1,0 +1,27 @@
+#privacydashboard-datasources {
+  position: relative;
+}
+
+#privacydashboard-datasources .privacydashboard-datasources-total {
+  bottom: 30px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 30px;
+}
+
+#privacydashboard-datasources .privacydashboard-datasources-total > div {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+#privacydashboard-datasources .privacydashboard-datasources-total > div > span {
+  display: table-cell;
+  font-size: 40px;
+  vertical-align: middle;
+}
+
+#privacydashboard-datasources .privacydashboard-datasources-chart {
+  height: 300px;
+}

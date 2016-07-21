@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="cloudlrs">
+<head>
+  <meta charset="utf-8">
+  <title>Student Privacy Dashboard</title>
+  <!-- build:css /static/style.css -->
+  <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="/lib/fontawesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="/lib/angular-ui-switch/angular-ui-switch.css" />
+  <link rel="stylesheet" href="/assets/css/cloudlrs.css" />
+  <link rel="stylesheet" href="/app/privacydashboard/privacydashboard.css" />
+  <link rel="stylesheet" href="/app/privacydashboard/datasources/datasources.css" />
+  <link rel="stylesheet" href="/app/privacydashboard/datauses/datauses.css" />
+  <link rel="stylesheet" href="/app/privacydashboard/recentactivities/recentactivities.css" />
+  <link rel="stylesheet" href="/app/privacydashboard/topactivities/topactivities.css" />
+  <!-- endbuild -->
+</head>
+<body ui-view>
+  <!-- build:vendor /static/vendor.js -->
+  <script src="/lib/angular/angular.js"></script>
+  <script src="/lib/angular-aria/angular-aria.js"></script>
+  <script src="/lib/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="/lib/angular-ui-switch/angular-ui-switch.js"></script>
+  <script src="/lib/highcharts/highcharts.js"></script>
+  <script src="/lib/highcharts-ng/dist/highcharts-ng.min.js"></script>
+  <script src="/lib/jquery/dist/jquery.js"></script>
+  <script src="/lib/lodash/lodash.js"></script>
+  <script src="lib/moment/moment.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:templateCache /static/templateCache.js -->
+  <script src="/app/templateCachePlaceholder.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:app /static/app.js -->
+  <script src="/app/app.bootstrap.js"></script>
+  <script src="/app/app.states.js"></script>
+  <script src="/app/privacydashboard/privacydashboardController.js"></script>
+  <script src="/app/privacydashboard/datasources/datasourcesFactory.js"></script>
+  <script src="/app/privacydashboard/datasources/datasourcesController.js"></script>
+  <script src="/app/privacydashboard/datauses/datausesFactory.js"></script>
+  <script src="/app/privacydashboard/datauses/datausesController.js"></script>
+  <script src="/app/privacydashboard/recentactivities/recentactivitiesFactory.js"></script>
+  <script src="/app/privacydashboard/recentactivities/recentactivitiesController.js"></script>
+  <script src="/app/privacydashboard/topactivities/topactivitiesFactory.js"></script>
+  <script src="/app/privacydashboard/topactivities/topactivitiesController.js"></script>
+  <script src="/app/privacydashboard/totalactivities/totalactivitiesFactory.js"></script>
+  <script src="/app/privacydashboard/totalactivities/totalactivitiesController.js"></script>
+  <!-- endbuild -->
+</body>

@@ -1,0 +1,27 @@
+<div id="privacydashboard-datauses" ng-controller="DatausesController">
+  <table>
+    <caption class="sr-only">Projects that potentially have access to the current user's data</caption>
+    <thead>
+      <tr>
+        <th scope="col">Purpose</th>
+        <th scope="col" class="privacydashboard-datauses-share-column">Share Your Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="dataUse in dataUses">
+        <td>
+          <h3 data-ng-bind="dataUse.name"></h3>
+          <p data-ng-bind="dataUse.description"></p>
+          <small data-ng-if="dataUse.anonymous">
+            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+            Anonymized
+          </small>
+        </td>
+        <td class="privacydashboard-datauses-share-column">
+          <form class="privacydashboard-datauses-share-form">
+            <switch data-ng-model="dataUse.share" class="green"></switch>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+</div>

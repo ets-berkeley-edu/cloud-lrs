@@ -1,0 +1,36 @@
+{
+  "name": "cloud-lrs",
+  "description": "Cloud-based Learning Record Store",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ets-berkeley-edu/cloud-lrs.git"
+  },
+  "licenses": [
+    {
+      "type": "UC Berkeley",
+      "url": "http://ipira.berkeley.edu/software-copyright-notice-and-disclaimer"
+    }
+  ],
+  "dependencies": {
+    "basic-auth": "latest",
+    "body-parser": "latest",
+    "bunyan": "latest",
+    "bunyan-prettystream": "latest",
+    "config": "latest",
+    "event-stream": "latest",
+    "express": "latest",
+    "joi": "latest",
+    "lodash": "latest",
+    "moment": "latest",
+    "pg": "latest",
+    "sequelize": "latest",
+    "tincanjs": "latest",
+    "uuid": "latest",
+    "xapi-validator": "https://github.com/nicolaasmatthijs/xapi-validator",
+    "yargs": "latest"
+  },
+  "engines": {
+    "node": ">=0.10"
+  }
+}

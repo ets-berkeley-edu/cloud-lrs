@@ -1,0 +1,63 @@
+<div id="privacydashboard-recentactivities" ng-controller="RecentactivitiesController">
+  <table>
+    <caption class="sr-only">Most recent learning activities for the current user</caption>
+    <thead class="sr-only">
+      <tr>
+        <th scope="col">
+          <span class="privacydashboard-recentactivities-timestamp">Date</span>
+        </th>
+        <th scope="col">
+          <span class="privacydashboard-recentactivities-timestamp">Time</span>
+        </th>
+        <th scope="col">Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="activity in recentActivities">
+        <td>
+          <span class="privacydashboard-recentactivities-timestamp" data-ng-bind="activity.date"></span>
+        </td>
+        <td>
+          <span class="privacydashboard-recentactivities-timestamp" data-ng-bind="activity.time"></span>
+        </td>
+        <td width="100%">
+          <div>
+            <button type="button" class="btn btn-link privacydashboard-recentactivities-toggle-statement" data-ng-click="activity.showStatement = !activity.showStatement">
+              <i class="fa fa-caret-right" data-ng-if="!activity.showStatement">
+                <span class="sr-only">Show Full Data View</span>
+              </i>
+              <i class="fa fa-caret-down" data-ng-if="activity.showStatement">
+                <span class="sr-only">Hide Full Data View</span>
+              </i>
+            </button>
+            <span class="privacydashboard-recentactivities-summary">
+              You
+              <strong data-ng-bind="activity.readableVerb"></strong>
+              <span data-ng-if="activity.readableObject">
+                <span data-ng-if="activity.readableObjectType">
+                  the
+                  <span data-ng-bind="activity.readableObjectType"></span>
+                </span>
+                &quot;<a data-ng-href="{{activity.statement.object.id}}" data-ng-bind="activity.readableObject"></a>&quot;
+              </span>
+              <span data-ng-if="activity.readableContext">
+                in
+                <span data-ng-if="activity.readableContextType">
+                  the
+                  <span data-ng-bind="activity.readableContextType"></span>
+                </span>
+                &quot;<a data-ng-href="{{activity.statement.context.contextActivities.grouping[0].id}}" data-ng-bind="activity.readableContext"></a>&quot;
+              </span>
+              on
+              <strong data-ng-bind="activity.write_credential.name"></strong>
+            </span>
+          </div>
+          <pre data-ng-show="activity.showStatement">{{activity.statement | json}}</pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div id="privacydashboard-recentactivities-showmore" class="text-center">
+    <button type="button" class="btn btn-secondary btn-sm" data-ng-click="loadMoreRecentActivities()">Show More</button>
+  </div>
+</div>

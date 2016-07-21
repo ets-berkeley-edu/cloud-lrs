@@ -1,0 +1,19 @@
+[{
+  "id": 1,
+  "name": "Learning Analytics Research Project",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel semper dolor, a rutrum mauris. Sed quis elit nulla. Sed aliquam erat nisi, id consequat eros egestas quis. Fusce rhoncus, diam dapibus gravida consequat, tortor urna ornare nunc, tincidunt faucibus libero ex quis massa.",
+  "anonymous": false,
+  "share": true
+}, {
+  "id": 2,
+  "name": "Athletic Study Centre Advisor Dashboard",
+  "description": "Nulla sit amet ornare odio. Phasellus ac rutrum tortor. Curabitur justo turpis, sagittis sollicitudin augue ut, lacinia mollis est. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus tincidunt tortor non nisi fermentum, quis aliquam nisl malesuada. Vestibulum efficitur quis justo a lacinia.",
+  "anonymous": true,
+  "share": true
+}, {
+  "id": 3,
+  "name": "SuiteC Engagement Index",
+  "description": "Pellentesque volutpat eu orci non placerat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec dignissim odio a erat laoreet, eget vulputate mi rutrum. Curabitur eget erat consectetur, varius sapien eu, dignissim ligula. Donec volutpat commodo mi.",
+  "anonymous": false,
+  "share": false
+}]

@@ -1,0 +1,22 @@
+<div id="privacydashboard-topactivities" ng-controller="TopactivitiesController">
+  <table>
+    <caption class="sr-only">Most frequent learning activities for the current user</caption>
+    <thead class="sr-only">
+      <tr>
+        <th scope="col">Activity Type</th>
+        <th scope="col">Learning Activities</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="activity in topActivities">
+        <td scope="row" class="privacydashboard-topactivities-type" data-ng-bind="activity.activity.split('_').join(' ')"></td>
+        <td class="privacydashboard-topactivities-total-container">
+          <span class="privacydashboard-topactivities-total" data-ng-bind="activity.total | number"></span>
+          <div class="privacydashboard-topactivities-full">
+            <div class="privacydashboard-topactivities-progress" data-ng-style="{'width': ((activity.total / topActivities[0].total) * 100) + '%'}"></div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

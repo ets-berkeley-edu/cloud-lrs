@@ -1,0 +1,36 @@
+#privacydashboard-recentactivities table {
+  width: 100%;
+}
+
+#privacydashboard-recentactivities table tr {
+  border-bottom: 1px solid #EBEBEB;
+}
+
+#privacydashboard-recentactivities table td {
+  padding: 15px 0 15px 10px;
+  vertical-align: top;
+}
+
+#privacydashboard-recentactivities table strong {
+  font-weight: 500;
+}
+
+#privacydashboard-recentactivities table pre {
+  margin: 15px 10px 0 20px;
+  white-space: pre-wrap;
+}
+
+#privacydashboard-recentactivities table .privacydashboard-recentactivities-timestamp {
+  display: block;
+  width: 130px;
+}
+
+#privacydashboard-recentactivities table .privacydashboard-recentactivities-toggle-statement {
+  padding: 0 7px 0 0;
+  position: relative;
+  top: -1px;
+}
+
+#privacydashboard-recentactivities #privacydashboard-recentactivities-showmore {
+  margin: 15px 0 5px;
+}

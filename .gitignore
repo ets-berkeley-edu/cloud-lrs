@@ -1,0 +1,14 @@
+.DS_STORE
+*.log
+
+config/*
+!config/default.json
+!config/test.js
+!config/travis.js
+
+development/statements.txt
+
+node_modules/*
+!node_modules/lrs-*
+
+public/lib
