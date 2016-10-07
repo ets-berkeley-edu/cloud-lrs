@@ -1,7 +1,7 @@
 {
   "apache": {
-    "documentRoot": "/var/www/html",
-    "logDirectory": "/usr/local/var/apache2/log"
+    "documentRoot": "/Users/sandeep/Desktop/ETS/cloud-lrs/public",
+    "logDirectory": "/Users/sandeep/Desktop/ETS/cloud-lrs/logs"
   },
   "app": {
     "https": false,
@@ -14,10 +14,10 @@
     "database": "cloudlrs",
     "username": "cloudlrs",
     "password": "cloudlrs",
-    "host": "localhost",
+    "host": "cloudlrs.ccc6t536h7z1.us-west-1.rds.amazonaws.com",
     "port": 5432,
     "dropOnStartup": false,
-    "version": "9.3.5",
+    "version": "9.3.14",
     "sync": true
   },
   "log": {

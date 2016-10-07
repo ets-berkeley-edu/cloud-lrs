@@ -18,6 +18,7 @@
     "bunyan": "latest",
     "bunyan-prettystream": "latest",
     "config": "latest",
+    "dtrace-provider": "latest",
     "event-stream": "latest",
     "express": "latest",
     "forever": "latest",

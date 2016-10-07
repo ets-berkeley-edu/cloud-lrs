@@ -35,8 +35,8 @@
      * @return {Promise<Project[]>}                              $http promise returning the projects that potentially have access to the current user's data
      */
     var getDataUses = function() {
-      // return $http.get('/app/privacydashboard/data/datauses.json');
-      return $http.get('/api/user/datauses');
+     return $http.get('/app/privacydashboard/data/datauses.json');
+     //return $http.get('/api/user/datauses');
     };
 
     return {
