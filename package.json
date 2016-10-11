@@ -15,6 +15,7 @@
   "dependencies": {
     "basic-auth": "latest",
     "body-parser": "latest",
+    "bower": "latest",
     "bunyan": "latest",
     "bunyan-prettystream": "latest",
     "config": "latest",
