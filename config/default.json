@@ -14,10 +14,10 @@
     "database": "cloudlrs",
     "username": "cloudlrs",
     "password": "cloudlrs",
-    "host": "cloudlrs.ccc6t536h7z1.us-west-1.rds.amazonaws.com",
+    "host": "aws-cloudlrs.ccc6t536h7z1.us-west-1.rds.amazonaws.com",
     "port": 5432,
     "dropOnStartup": false,
-    "version": "9.5.2",
+    "version": "9.3.14",
     "sync": true
   },
   "log": {
