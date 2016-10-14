@@ -14,7 +14,7 @@
     "database": "cloudlrs",
     "username": "cloudlrs",
     "password": "cloudlrs",
-    "host": "aws-cloudlrs.ccc6t536h7z1.us-west-1.rds.amazonaws.com",
+    "host": "localhost",
     "port": 5432,
     "dropOnStartup": false,
     "version": "9.3.14",
