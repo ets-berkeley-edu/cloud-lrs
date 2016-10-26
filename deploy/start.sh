@@ -4,7 +4,7 @@
 ./deploy/stop.sh
 
 # The directory where forever logs should be sent to
-LOG_DIR=~/logs
+LOG_DIR= ~/logs
 
 npm install -g bower
 

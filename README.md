@@ -70,7 +70,7 @@ node app
 # Deploying Cloud-LRS using Apache
 
 ## Apache
-Cloud-LRS uses Apache as its reverse proxy. Set the apache documentRoot and logDirectory in the config/default.json.
+Cloud-LRS uses Apache as its reverse proxy. Rename the file in config/default.json (If not it gets overwritten during commits). Set the apache documentRoot and logDirectory in the config/<config>.json file.
 
 Cloud-LRS also contains a script that will generate an Apache config file based on the project's configuration. This script can be run by executing the following command from the project's root folder:
 
