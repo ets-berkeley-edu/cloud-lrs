@@ -90,7 +90,7 @@ sudo apachectl restart
 ```
 
 ## Deployment script
-Cloud-LRS contains a deployment script that can be used to deploy the latest code. The script install all dependencies in package json, genrates static assets and drops it under /public folder. By default the DOCUMENT_ROOT is set to /var/www/html/ and the static assets are dropped into the folder.
+Cloud-LRS contains a deployment script that can be used to deploy the latest code. The script installs all dependencies in package json, generates static assets and drops it under /public folder. By default the DOCUMENT_ROOT is set to /var/www/html/ and the static assets are dropped into the folder.
 
 To start Cloud-LRS app server
 
@@ -112,10 +112,10 @@ The privacy dashboard can be accessed using the URL
 http://localhost/privacydashboard
 ```
 
-## Learning Statements in xAPI format.
-The LRS use Basic authentication and accepts Learning statements using POST and PUT method.
+## Learning Statements (currently in xAPI format).
+The LRS uses Basic authentication and accepts Learning statements using POST and PUT method.
 
 ```
 http://localhost/api/statements
 ```
-The statements are validated using https://github.com/nicolaasmatthijs/xapi-validator before incorporating into the LRS.
+The xAPI statements are validated using https://github.com/nicolaasmatthijs/xapi-validator before incorporating into the LRS.
