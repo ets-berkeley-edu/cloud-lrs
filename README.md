@@ -1,42 +1,46 @@
 # Cloud-LRS
 
-Cloud LRS is a Learning Record Store, a central place for collecting and storing interoperable Learning Activities from multiple campus systems.
+Cloud-LRS is a Learning Record Store, a central place for collecting and storing interoperable Learning Activities from multiple campus systems.
 It can store statements in compliance with xAPI and IMS Caliper formats.
 
-### PostgresSQL
+### PostgreSQL
 
-Cloud-LRS uses PostgresSQL as its database to store the statements. In order to set up PostgresSQL and the required database and database users, the following steps should be taken:
+Cloud-LRS uses PostgreSQL as its database to store the statements. In order to set up PostgreSQL and the required database and database users, the following steps should be taken:
+
+
+# Install postgres
 
 ```
-# Install postgres
 brew install postgresql
-
+```
 # Start postgres
+
+```
 postgres -D /usr/local/var/postgres
+```
 
 # Create a database and user
+```
 psql template1
-  template1=# CREATE USER cloudlrs WITH PASSWORD 'cloudlrs';
-    CREATE ROLE
-  template1=# CREATE DATABASE cloudlrs;
-    CREATE DATABASE
-  template1=# GRANT ALL PRIVILEGES ON DATABASE cloudlrs TO cloudlrs;
-    GRANT
+CREATE USER cloudlrs WITH PASSWORD 'cloudlrs';
+CREATE DATABASE cloudlrs;
+GRANT ALL PRIVILEGES ON DATABASE cloudlrs TO cloudlrs;
+```
 
 # Create a tenant & write credentials for tenant app.
 
+```
 insert into tenants values(<tenant-id>,'<tenant-name>', '<key>', '<secret>', now(), now());
-
 insert into write_credentials values(<id>,'<app-name>','<key>','<secret>',now(), now(),<tenant-id>);
-
 ```
 
 ### Cloud-LRS - Local Deployment
 
 In order to install and start the Cloud-LRS app server, the following steps should be taken:
 
-```
 # Clone the Cloud-LRS codebase
+
+```
 git clone git://github.com/ets-berkeley-edu/cloud-lrs.git
 ```
 
@@ -53,7 +57,6 @@ Ensure you have the following packages installed and available in your `$PATH`:
 
 ```
 npm install
-
 bower install
 ```
 
@@ -76,11 +79,12 @@ node apache/apache.js
 ```
 
 This will generate an Apache config file at `apache/cloudlrs.conf`, which can be included into the main Apache config file.
+Copy the cloudlrs.conf to  /path/to/apache2 directory (Eg: /usr/local/etc/apache2)
 
-Include the cloudlrs.conf Apache config file in /usr/local/etc/apache2/httpd.conf
+Include the cloudlrs.conf Apache config file by adding this line to httpd.conf
 
 ```
-Include /usr/local/etc/apache2/2.4/cloudlrs.conf
+Include /path/to/apache2/cloudlrs.conf
 ```
 
 Restart Apache
@@ -113,7 +117,7 @@ http://localhost/privacydashboard
 ```
 
 ## Learning Statements (currently in xAPI format).
-The LRS uses Basic authentication and accepts Learning statements using POST and PUT method.
+The LRS uses Basic Authentication and accepts Learning statements using POST and PUT methods.
 
 ```
 http://localhost/api/statements

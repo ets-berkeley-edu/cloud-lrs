@@ -4,7 +4,7 @@
 ./deploy/stop.sh
 
 # The directory where forever logs should be sent to
-LOG_DIR=~/Desktop/ETS/cloud-lrs/logs
+LOG_DIR=~/logs
 
 npm install -g bower
 
@@ -12,7 +12,7 @@ npm install
 
 bower install
 
-# copy static assests to Document Root
+# copy static assets to Document Root
 cp -R public /var/www/html/
 
 # Start the app server

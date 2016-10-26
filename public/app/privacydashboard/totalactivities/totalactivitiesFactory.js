@@ -35,8 +35,12 @@
      * @return {Promise<ActivityTotal[]>}                              $http promise returning the total number of learning activities per month for the current user
      */
     var getTotalActivities = function() {
-      return $http.get('/app/privacydashboard/data/totalactivities.json');
-      //return $http.get('/api/user/totalactivities');
+
+      // maps sample data to populate the dashboard visual
+      // return $http.get('/app/privacydashboard/data/totalactivities.json');
+
+      // enable this to get the data from the api
+      return $http.get('/api/user/totalactivities');
     };
 
     return {

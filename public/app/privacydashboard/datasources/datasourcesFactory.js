@@ -35,8 +35,12 @@
      * @return {Promise<DataSource[]>}                              $http promise returning the data sources that have generated activities for the current user
      */
     var getDataSources = function() {
-      return $http.get('/app/privacydashboard/data/datasources.json');
-      //return $http.get('/api/user/datasources');
+
+      // maps sample data to populate the dashboard visual
+      // return $http.get('/app/privacydashboard/data/datasources.json');
+
+      // enable this to change to datasource to api
+      return $http.get('/api/user/datasources');
     };
 
     return {
