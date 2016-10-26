@@ -31,9 +31,9 @@ insert into write_credentials values(<id>,'<app-name>','<key>','<secret>',now(),
 
 ```
 
-### Cloud LRS - Local Deployment
+### Cloud-LRS - Local Deployment
 
-In order to install and start the Collabosphere app server, the following steps should be taken:
+In order to install and start the Cloud-LRS app server, the following steps should be taken:
 
 ```
 # Clone the Cloud-LRS codebase
@@ -51,7 +51,11 @@ Ensure you have the following packages installed and available in your `$PATH`:
 
 ## Install Node modules in package.json
 
+```
 npm install
+
+bower install
+```
 
 # Run Cloud-LRS. The LRS starts listening on port 2000.
 
@@ -59,4 +63,59 @@ npm install
 node app
 ```
 
-## To Do - Apache proxy configs.
+
+# Deploying Cloud-LRS using Apache
+
+## Apache
+Cloud-LRS uses Apache as its reverse proxy. Set the apache documentRoot and logDirectory in the config/default.json.
+
+Cloud-LRS also contains a script that will generate an Apache config file based on the project's configuration. This script can be run by executing the following command from the project's root folder:
+
+```
+node apache/apache.js
+```
+
+This will generate an Apache config file at `apache/cloudlrs.conf`, which can be included into the main Apache config file.
+
+Include the cloudlrs.conf Apache config file in /usr/local/etc/apache2/httpd.conf
+
+```
+Include /usr/local/etc/apache2/2.4/cloudlrs.conf
+```
+
+Restart Apache
+
+```
+sudo apachectl restart
+```
+
+## Deployment script
+Cloud-LRS contains a deployment script that can be used to deploy the latest code. The script install all dependencies in package json, genrates static assets and drops it under /public folder. By default the DOCUMENT_ROOT is set to /var/www/html/ and the static assets are dropped into the folder.
+
+To start Cloud-LRS app server
+
+```
+./deploy/start.sh
+```
+
+To stop Cloud-LRS app server
+
+```
+./deploy/stop.sh
+```
+
+## Privacy Dashboard
+
+The privacy dashboard can be accessed using the URL
+
+```
+http://localhost/privacydashboard
+```
+
+## Learning Statements in xAPI format.
+The LRS use Basic authentication and accepts Learning statements using POST and PUT method.
+
+```
+http://localhost/api/statements
+```
+The statements are validated using https://github.com/nicolaasmatthijs/xapi-validator before incorporating into the LRS.
