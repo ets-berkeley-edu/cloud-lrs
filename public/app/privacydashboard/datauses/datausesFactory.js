@@ -43,8 +43,20 @@
      return $http.get('/api/user/datauses');
     };
 
+    /**
+     * When a student makes changes on data share for specific projects create a post request to update the records suitably
+     *
+     * @return {Promise<Project[]>}                              $http promise returning the projects that potentially have access to the current user's data
+     */
+    var updateDataShare = function(dataUse) {
+
+     // enable this to post and update data share from the api
+     return $http.post('/api/user/datashare', dataUse);
+    };
+
     return {
-      'getDataUses': getDataUses
+      'getDataUses': getDataUses,
+      'updateDataShare': updateDataShare
     };
 
   });

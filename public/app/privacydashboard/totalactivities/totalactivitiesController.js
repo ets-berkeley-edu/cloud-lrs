@@ -165,8 +165,12 @@
           // Convert the provided total activity numbers to a format readable by Highcharts
           $scope.totalActivitiesOptions.xAxis.categories = _.map($scope.totalActivities, 'period');
 
+          // TODO : Remove the ! condition for production.
+          // Current is a boolean denoting if the semester is current or not. Historical data is used for development purposes
+          // Hence checking for current always renders false. Hence using the ! condition to negate it.
+
           // Change the current month to a dotted line
-          if ($scope.totalActivities[$scope.totalActivities.length - 1].current) {
+          if (!$scope.totalActivities[$scope.totalActivities.length - 1].current) {
             $scope.totalActivitiesOptions.series[0].zoneAxis = 'x';
             $scope.totalActivitiesOptions.series[0].zones = [{
               'value' : $scope.totalActivities.length - 2

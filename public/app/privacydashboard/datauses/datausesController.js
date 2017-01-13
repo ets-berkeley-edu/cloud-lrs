@@ -43,6 +43,15 @@
           $scope.dataUses = dataUses.data;
         });
       };
+      /**
+       * Updates student's selection on data share opt-in/opt-out for specific projects.
+       * The datause object is with updated share selection is passed on to the api to process appropriately.
+       *
+       * @api private
+       */
+      $scope.toggleSwitch = function (dataUse) {
+        datausesFactory.updateDataShare(dataUse);
+      };
 
       renderDataUses();
 
