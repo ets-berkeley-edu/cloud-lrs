@@ -19,7 +19,7 @@
         </td>
         <td class="privacydashboard-datauses-share-column">
           <form class="privacydashboard-datauses-share-form">
-            <switch data-ng-model="dataUse.share" class="green"></switch>
+            <switch data-ng-model="dataUse.share" ng-change="toggleSwitch(dataUse)" class="green"></switch>
           </form>
         </td>
       </tr>
