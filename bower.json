@@ -7,16 +7,16 @@
     "url": "git://github.com/ets-berkeley-edu/cloud-lrs.git"
   },
   "dependencies": {
-    "angular": "latest",
-    "angular-aria": "latest",
-    "angular-ui-router": "latest",
-    "angular-ui-switch": "latest",
-    "bootstrap": "latest",
-    "fontawesome": "latest",
-    "highcharts": "latest",
-    "highcharts-ng": "latest",
-    "jquery": "latest",
-    "lodash": "latest",
-    "moment": "latest"
+    "angular": "1.5.8",
+    "angular-aria": "1.5.8",
+    "angular-ui-router": "0.3.1",
+    "angular-ui-switch": "0.1.1",
+    "bootstrap": "3.3.7",
+    "fontawesome": "4.7.0",
+    "highcharts": "5.0.2",
+    "highcharts-ng": "0.0.13",
+    "jquery": "3.1.1",
+    "lodash": "4.16.4",
+    "moment": "2.15.2"
   }
 }
