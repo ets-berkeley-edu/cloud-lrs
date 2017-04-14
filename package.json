@@ -13,27 +13,27 @@
     }
   ],
   "dependencies": {
-    "basic-auth": "latest",
-    "body-parser": "latest",
-    "bower": "latest",
-    "bunyan": "latest",
-    "bunyan-prettystream": "latest",
-    "config": "latest",
-    "dtrace-provider": "latest",
-    "event-stream": "latest",
-    "express": "latest",
-    "forever": "latest",
-    "joi": "latest",
-    "lodash": "latest",
-    "moment": "latest",
-    "pg": "latest",
-    "sequelize": "latest",
-    "tincanjs": "latest",
-    "uuid": "latest",
-    "xapi-validator": "https://github.com/nicolaasmatthijs/xapi-validator",
-    "yargs": "latest"
+    "basic-auth": "1.1.0",
+    "body-parser": "1.17.1",
+    "bower": "1.8.0",
+    "bunyan": "1.8.10",
+    "bunyan-prettystream": "0.1.3",
+    "config": "1.25.1",
+    "dtrace-provider": "0.8.1",
+    "event-stream": "3.3.4",
+    "express": "4.15.2",
+    "forever": "0.15.3",
+    "joi": "10.4.1",
+    "lodash": "4.17.4",
+    "moment": "2.18.1",
+    "pg": "6.1.5",
+    "sequelize": "3.30.4",
+    "tincanjs": "0.50.0",
+    "uuid": "3.0.1",
+    "xapi-validator": "https://github.com/ets-berkeley-edu/xapi-validator.git",
+    "yargs": "7.0.2"
   },
   "engines": {
-    "node": ">=0.10"
+    "node": "6.9.1"
   }
 }
