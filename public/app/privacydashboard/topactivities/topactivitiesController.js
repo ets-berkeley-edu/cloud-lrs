@@ -23,36 +23,37 @@
  * ENHANCEMENTS, OR MODIFICATIONS.
  */
 
-( function(angular) {
+ (function(angular) {
 
-    'use strict';
+   'use strict';
 
-    angular.module('cloudlrs').controller('TopactivitiesController', function(topactivitiesFactory, $scope) {
+   angular.module('cloudlrs').controller('TopactivitiesController', function(topactivitiesFactory, $scope) {
 
-      // Variable that will keep track of the top activities data
-      $scope.topActivities = null;
+     // Variable that will keep track of the top activities data
+     $scope.topActivities = null;
 
-      /**
-       * Render the most frequent activities for the current user
-       *
-       * @api private
-       */
-      var renderTopActivities = function() {
-        topactivitiesFactory.getTopActivities().then(function(topActivities) {
-          $scope.topActivities = topActivities.data;
+     /**
+      * Render the most frequent activities for the current user
+      *
+      * @return {void}
+      * @api private
+      */
+     var renderTopActivities = function() {
+       topactivitiesFactory.getTopActivities().then(function(topActivities) {
+         $scope.topActivities = topActivities.data;
 
-          // Sort the top activities
-          $scope.topActivities.sort(function(a, b) {
-            return b.total - a.total;
-          });
+         // Sort the top activities
+         $scope.topActivities.sort(function(a, b) {
+           return b.total - a.total;
+         });
 
-          // Select the top 5 activities
-          $scope.topActivities = $scope.topActivities.slice(0, 5);
-        });
-      };
+         // Select the top 5 activities
+         $scope.topActivities = $scope.topActivities.slice(0, 5);
+       });
+     };
 
-      renderTopActivities();
+     renderTopActivities();
 
-    });
+   });
 
-  }(window.angular));
+ }(window.angular));

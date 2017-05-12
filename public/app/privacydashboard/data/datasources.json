@@ -1,10 +1,19 @@
 [{
   "name": "bCourses",
-  "total": 5421
+  "total": 3421
 }, {
-  "name": "CalCentral",
-  "total": 3458
+  "name": "Piazza",
+  "total": 700
+}, {
+  "name": "Turnitin",
+  "total": 1458
 }, {
   "name": "SuiteC",
   "total": 563
+}, {
+  "name": "Explorance",
+  "total": 300
+},{
+  "name": "Gradescope",
+  "total": 500
 }]

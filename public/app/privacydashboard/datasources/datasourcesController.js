@@ -23,125 +23,140 @@
  * ENHANCEMENTS, OR MODIFICATIONS.
  */
 
-( function(angular) {
+ (function(angular) {
 
-    'use strict';
+   'use strict';
 
-    angular.module('cloudlrs').controller('DatasourcesController', function(datasourcesFactory, $filter, $scope) {
+   angular.module('cloudlrs').controller('DatasourcesController', function(datasourcesFactory, $filter, $timeout, $scope) {
 
-      // Variable that will keep track of the data sources data
-      $scope.dataSources = null;
+     // Variable that will keep track of the data sources data
+     $scope.dataSources = null;
 
-      // Data sources chart configuration
-      $scope.dataSourcesOptions = {
-        'options' : {
-          'chart' : {
-            'backgroundColor' : 'transparent',
-            'spacing' : [0, 0, 0, 0],
-            'style' : {
-              'fontFamily' : '"Helvetica Neue",Helvetica,Arial,sans-serif',
-            },
-            'type' : 'pie'
-          },
-          'plotOptions': {
-            'pie' : {
-              'colors' : ['#003262', '#3B7EA1', '#FDB515', '#EE1F60', '#00A598', '#CFDD45', '#46535E', '#DDD5C7'],
-              'tooltip' : {
-                'headerFormat' : '',
-                'pointFormatter' : function() {
-                  return '<b>' + this.name + '</b>: ' + $filter('number')(this.total, 0) + ' (' +  this.percentage.toFixed(2) + '%)'
-                },
-                'valueDecimals' : 2
-              }
-            }
-          }
-        },
-        'title' : {
-          'text' : null
-        },
-        'series' : [{
-          'size' : '90%',
-          'innerSize' : '75%',
-          'legend' : false,
-          'dataLabels' : {
-            'enabled' : false
-          }
-        }]
-      };
+     // Data sources chart configuration
+     $scope.dataSourcesOptions = {
+       'chart': {
+         'type': 'pie',
+         'renderTo': 'privacydashboard-datasources-chart',
+         'backgroundColor': 'transparent',
+         'spacing': [0, 0, 0, 0],
+         'width': 500,
+         'style': {
+           'fontFamily': '"Helvetica Neue", Helvetica, Arial, sans-serif'
+         }
+       },
+       'plotOptions': {
+         'pie': {
+           'colors': ['#003262', '#3B7EA1', '#FDB515', '#EE1F60', '#00A598', '#CFDD45', '#46535E', '#DDD5C7'],
+           'tooltip': {
+             'headerFormat': '',
+             'pointFormatter': function() {
+               return '<b>' + this.name + '</b>: ' + $filter('number')(this.total, 0) + ' (' + this.percentage.toFixed(2) + '%)';
+             },
+             'valueDecimals': 2
+           }
+         }
+       },
+       'title': {
+         'text': null
+       },
+       'credits': {
+         'enabled': false
+       },
+       'series': [{
+         'type': 'pie',
+         'innerSize': '70%',
+         'allowPointSelect': true,
+         'legend': false,
+         'dataLabels': {
+           'enabled': true
+         }
+       }],
+       'responsive': {
+         'rules': [{
+           'condition': {
+             'maxWidth': 500
+           }
+         }]
+       }
+     };
 
-      /**
-       * Get the data sources donut chart
-       *
-       * @api private
-       */
-      var getChart = function() {
-        var chartIndex = $('#privacydashboard-datasources-chart').data('highcharts-chart');
-        return Highcharts.charts[chartIndex];
-      };
+     /**
+      * Get the data sources donut chart
+      *
+      * @api private
+      * @return {void}
+      */
+     var getChart = function() {
+       var chartIndex = $('#privacydashboard-datasources-chart').data('highcharts-chart');
+       var chart = Highcharts.charts[chartIndex];
+       return chart.reflow();
+     };
 
-      /**
-       * Remove the hover state from all chart segments
-       *
-       * @api private
-       */
-      var removeHoverState = function() {
-        var chart = getChart();
-        for (var i = 0; i < chart.series[0].data.length; i++) {
-          chart.series[0].data[i].setState();
-        }
-        chart.tooltip.hide();
-      };
+     /**
+      * Remove the hover state from all chart segments
+      *
+      * @return {void}
+      */
+     var removeHoverState = function() {
+       var chart = getChart();
+       for (var i = 0; i < chart.series[0].data.length; i++) {
+         chart.series[0].data[i].setState();
+       }
+       chart.tooltip.hide();
+     };
 
-      /**
-       * Activate the hover state on the chart segment that corresponds to
-       * screenreader table row that has focus
-       *
-       * @param  {Number}        index            The id of the screenreader table row that has focus
-       */
-      $scope.screenreaderRowFocus = function(index) {
-        removeHoverState();
-        var chart = getChart();
-        chart.series[0].data[index].setState('hover');
-        chart.tooltip.refresh(chart.series[0].data[index]);
-      };
+     /**
+      * Activate the hover state on the chart segment that corresponds to
+      * screenreader table row that has focus
+      *
+      * @param  {Number}        index            The id of the screenreader table row that has focus
+      * @return {void}
+      */
+     $scope.screenreaderRowFocus = function(index) {
+       removeHoverState();
+       var chart = getChart();
+       chart.series[0].data[index].setState('hover');
+       chart.tooltip.refresh(chart.series[0].data[index]);
+     };
 
-      /**
-       * Remove the hover state from all chart segments when
-       * focus is lost
-       *
-       * @param  {Number}        index            The id of the screenreader table row that has lost focus
-       */
-      $scope.screenreaderRowBlur = function(index) {
-        removeHoverState();
-      };
+     /**
+      * Remove the hover state from all chart segments when
+      * focus is lost
+      *
+      * @param  {Number}        index            The id of the screenreader table row that has lost focus
+      * @return {void}
+      */
+     $scope.screenreaderRowBlur = function(index) {
+       removeHoverState();
+     };
 
-      /**
-       * Render the data sources that have generated learning activities
-       * for the current user
-       *
-       * @api private
-       */
-      var renderDataSources = function() {
-        datasourcesFactory.getDataSources().then(function(dataSources) {
+     /**
+      * Render the data sources that have generated learning activities
+      * for the current user
+      *
+      * @return {void}
+      * @api private
+      */
+     var renderDataSources = function() {
+       datasourcesFactory.getDataSources().then(function(dataSources) {
 
-          // Convert the provided data sources to a format readable by Highcharts
-          $scope.dataSources = [];
-          _.each(dataSources.data, function(dataSource) {
-            $scope.dataSources.push([dataSource.name, dataSource.total]);
-          });
+         // Convert the provided data sources to a format readable by Highcharts
+         $scope.dataSources = [];
+         _.each(dataSources.data, function(dataSource) {
+           $scope.dataSources.push([dataSource.name, dataSource.total]);
+         });
 
-          // Sort the data sources data
-          $scope.dataSources.sort(function(a, b) {
-            return b[1] - a[1];
-          });
+         // Sort the data sources data
+         $scope.dataSources.sort(function(a, b) {
+           return b[1] - a[1];
+         });
 
-          console.log($scope.dataSources);
-          $scope.dataSourcesOptions.series[0].data = $scope.dataSources;
-        });
-      };
+         $scope.dataSourcesOptions.series[0].data = $scope.dataSources;
+       });
+     };
 
-      renderDataSources();
+     renderDataSources();
 
-    });
+   });
 
-  }(window.angular));
+ }(window.angular));

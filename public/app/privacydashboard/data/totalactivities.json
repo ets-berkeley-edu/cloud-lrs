@@ -1,21 +1,21 @@
 [{
-  "period": "March 2016",
-  "total": 1526,
-  "current": false
-}, {
-  "period": "April 2016",
-  "total": 2652,
-  "current": false
-}, {
-  "period": "May 2016",
-  "total": 3242,
-  "current": false
-}, {
-  "period": "June 2016",
+  "period": "Jan 2017",
   "total": 1832,
   "current": false
 }, {
-  "period": "July 2016",
+  "period": "Feb 2016",
   "total": 800,
+  "current": false
+}, {
+  "period": "March 2017",
+  "total": 1526,
+  "current": false
+}, {
+  "period": "April 2017",
+  "total": 2652,
+  "current": false
+}, {
+  "period": "May 2017",
+  "total": 3242,
   "current": true
 }]

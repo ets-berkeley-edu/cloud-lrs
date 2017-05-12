@@ -42,7 +42,7 @@
         'url': '/privacydashboard',
         'templateUrl': '/app/privacydashboard/privacydashboard.html',
         'controller': 'PrivacydashboardController'
-      })
+      });
   });
 
 })(window.angular);

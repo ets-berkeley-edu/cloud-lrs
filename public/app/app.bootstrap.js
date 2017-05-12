@@ -27,7 +27,14 @@
 
   var cloudlrs = angular.module('cloudlrs', [
     'ngAria',
+    'ngCookies',
+    'ngMessages',
+    'ngMoment',
+    'ngSanitize',
     'highcharts-ng',
+    'common.fabric',
+    'common.fabric.utilities',
+    'common.fabric.constants',
     'ui.router',
     'uiSwitch',
 
@@ -35,5 +42,20 @@
     // through the `templateCache`. This allows us to cache and revision HTML partials in production
     'cloudlrs.templates'
   ]);
+
+  /**
+   * Get the parsed querystring parameters from the current URL
+   *
+   * @return {Object}                     The parsed querystring parameters from the current URL
+   * @see https://css-tricks.com/snippets/jquery/get-query-params-object/
+   */
+  var getQueryParameters = function() {
+    var queryArgs = decodeURIComponent(document.location.search).replace(/(^\?)/, '');
+    var parameters = queryArgs.split('&').map(function(n) {
+      return n = n.split('='), this[n[0]] = n[1], this;
+    }.bind({}))[0];
+
+    return parameters;
+  };
 
 })(window.angular);

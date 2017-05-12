@@ -23,12 +23,12 @@
  * ENHANCEMENTS, OR MODIFICATIONS.
  */
 
-( function(angular) {
+(function(angular) {
 
-    'use strict';
+  'use strict';
 
-    angular.module('cloudlrs').controller('PrivacydashboardController', function($scope) {
+  angular.module('cloudlrs').controller('PrivacydashboardController', function($scope) {
 
-    });
+  });
 
-  }(window.angular));
+}(window.angular));
