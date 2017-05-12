@@ -27,7 +27,7 @@
 
   'use strict';
 
-  angular.module('cloudlrs').factory('totalactivitiesFactory', function($http) {
+  angular.module('cloudlrs').factory('totalactivitiesFactory', function(utilService, $http) {
 
     /**
      * Get the total number of learning activities per month for the current user
@@ -40,7 +40,8 @@
       // return $http.get('/app/privacydashboard/data/totalactivities.json');
 
       // enable this to get the data from the api
-      return $http.get('/api/user/totalactivities');
+      return $http.get(utilService.getApiUrl('/user/totalactivities'));
+
     };
 
     return {

@@ -32,17 +32,17 @@ var stream = require('stream');
 var tincan = require('tincanjs');
 var util = require('util');
 var argv = require('yargs')
-    .usage('Usage: $0 --key --secret [--number]')
-    .demand(['k','s'])
-    .alias('k', 'key')
-    .describe('k', 'The write credential key to ingest the learning activity statement with')
-    .alias('s', 'secret')
-    .describe('s', 'The write credential secret to ingest the learning activity statement with')
-    .alias('n', 'number')
-    .describe('n', 'The number of learning activity statements to ingest')
-    .help('h')
-    .alias('h', 'help')
-    .argv;
+  .usage('Usage: $0 --key --secret [--number]')
+  .demand(['k','s'])
+  .alias('k', 'key')
+  .describe('k', 'The write credential key to ingest the learning activity statement with')
+  .alias('s', 'secret')
+  .describe('s', 'The write credential secret to ingest the learning activity statement with')
+  .alias('n', 'number')
+  .describe('n', 'The number of learning activity statements to ingest')
+  .help('h')
+  .alias('h', 'help')
+  .argv;
 
 // Extract the command line parameters
 var number = argv.number;

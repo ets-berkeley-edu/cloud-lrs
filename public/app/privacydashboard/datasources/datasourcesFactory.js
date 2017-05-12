@@ -27,7 +27,7 @@
 
   'use strict';
 
-  angular.module('cloudlrs').factory('datasourcesFactory', function($http) {
+  angular.module('cloudlrs').factory('datasourcesFactory', function(utilService, $http) {
 
     /**
      * Get the data sources that have generated learning activities for the current user
@@ -40,7 +40,7 @@
       // return $http.get('/app/privacydashboard/data/datasources.json');
 
       // enable this to change to datasource to api
-      return $http.get('/api/user/datasources');
+      return $http.get(utilService.getApiUrl('/user/datasources'));
     };
 
     return {

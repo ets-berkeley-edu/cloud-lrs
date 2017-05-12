@@ -23,78 +23,87 @@
  * ENHANCEMENTS, OR MODIFICATIONS.
  */
 
-( function(angular) {
+ (function(angular) {
 
-    'use strict';
+   'use strict';
 
-    angular.module('cloudlrs').controller('RecentactivitiesController', function(recentactivitiesFactory, $scope) {
+   angular.module('cloudlrs').controller('RecentactivitiesController', function(recentactivitiesFactory, $scope) {
 
-      // Variable that will keep track of the recent activities data
+     // Variable that will keep track of the recent activities data
      $scope.recentActivities = [];
 
-      // Variable that will keep track of the current page result
-      $scope.currentPage = 0;
+     // Variable that will keep track of the current page result
+     $scope.currentPage = 0;
 
-      /**
-       * Load the next page of learning activities for the current user
-       */
-      $scope.loadMoreRecentActivities = function() {
-        $scope.currentPage++;
-        renderRecentActivities();
-      };
+     /**
+      * Load the next page of learning activities for the current user
+      *
+      * @return {void}
+      */
+     $scope.loadMoreRecentActivities = function() {
+       $scope.currentPage++;
+       renderRecentActivities();
+     };
 
-      /**
-       * Render the most recent learning activities for the current user
-       *
-       * @api private
-       */
-      var renderRecentActivities = function() {
-        recentactivitiesFactory.getRecentActivities($scope.currentPage).then(function(recentActivities) {
-          $scope.recentActivities = $scope.recentActivities.concat(recentActivities.data.results);
+     /**
+      * Render the most recent learning activities for the current user
+      *
+      * @return {void}
+      * @api private
+      */
+     var renderRecentActivities = function() {
+       recentactivitiesFactory.getRecentActivities($scope.currentPage).then(function(recentActivities) {
+         $scope.recentActivities = $scope.recentActivities.concat(recentActivities.data.results);
 
-          _.each($scope.recentActivities, function(activity) {
-            // Extract the readable verb
-            activity.readableVerb = activity.verb.split('/').pop();
-            if (_.get(activity.statement, 'verb.display')) {
-              activity.readableVerb = _.values(activity.statement.verb.display)[0];
-            }
+         _.each($scope.recentActivities, function(activity) {
+           // Extract the readable verb
 
-            // Extract the readable object
-            activity.readableObject = null;
-            if (_.get(activity.statement, 'object.definition.name')) {
-              activity.readableObject = _.values(activity.statement.object.definition.name)[0];
-            } else if (_.get(activity.statement, 'object.id')) {
-              activity.readableObject = activity.statement.object.id;
-            }
+           if (activity.statement_type === 'XAPI') {
+             activity.readableVerb = activity.verb.split('/').pop();
+             if (_.get(activity.statement, 'verb.display')) {
+               activity.readableVerb = _.values(activity.statement.verb.display)[0];
+             }
 
-            // Extract the readable object type
-            activity.readableObjectType = null;
-            if (_.get(activity.statement, 'object.definition.type')) {
-              activity.readableObjectType = activity.statement.object.definition.type.split('/').pop();
-            }
+           } else if (activity.statement_type === 'CALIPER') {
+             activity.readableVerb = activity.activity_type.split('/').pop();
+           }
 
-            // Extract the readable context
-            activity.readableContext = null;
-            if (_.get(activity.statement, 'context.contextActivities.grouping[0].definition.name')) {
-              activity.readableContext = _.values(activity.statement.context.contextActivities.grouping[0].definition.name)[0];
-            }
+           // Extract the readable object
+           activity.readableObject = null;
+           if (_.get(activity.statement, 'object.definition.name')) {
+             activity.readableObject = _.values(activity.statement.object.definition.name)[0];
+           } else if (_.get(activity.statement, 'object.id')) {
+             activity.readableObject = activity.statement.object.id;
+           }
 
-            // Extract the readable context type
-            activity.readableContextType = null;
-            if (_.get(activity.statement, 'context.contextActivities.grouping[0].definition.type')) {
-              activity.readableContextType = activity.statement.context.contextActivities.grouping[0].definition.type.split('/').pop();
-            }
+           // Extract the readable object type
+           activity.readableObjectType = null;
+           if (_.get(activity.statement, 'object.definition.type')) {
+             activity.readableObjectType = activity.statement.object.definition.type.split('/').pop();
+           }
 
-            // Extract a readable date and time
-            var timestamp = moment(activity.timestamp);
-            activity.date = timestamp.format('MMM D, YYYY');
-            activity.time = timestamp.format('hh:mm:ss a');
-          });
-        });
-      };
+           // Extract the readable context
+           activity.readableContext = null;
+           if (_.get(activity.statement, 'context.contextActivities.grouping[0].definition.name')) {
+             activity.readableContext = _.values(activity.statement.context.contextActivities.grouping[0].definition.name)[0];
+           }
 
-      renderRecentActivities();
+           // Extract the readable context type
+           activity.readableContextType = null;
+           if (_.get(activity.statement, 'context.contextActivities.grouping[0].definition.type')) {
+             activity.readableContextType = activity.statement.context.contextActivities.grouping[0].definition.type.split('/').pop();
+           }
 
-    });
+           // Extract a readable date and time
+           var timestamp = moment(activity.timestamp);
+           activity.date = timestamp.format('MMM D, YYYY');
+           activity.time = timestamp.format('hh:mm:ss a');
+         });
+       });
+     };
 
-  }(window.angular));
+     renderRecentActivities();
+
+   });
+
+ }(window.angular));

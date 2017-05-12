@@ -27,7 +27,7 @@
 
   'use strict';
 
-  angular.module('cloudlrs').factory('topactivitiesFactory', function($http) {
+  angular.module('cloudlrs').factory('topactivitiesFactory', function(utilService, $http) {
 
     /**
      * Get the most frequent learning activities for the current user
@@ -40,7 +40,7 @@
       // return $http.get('/app/privacydashboard/data/topactivities.json');
 
       // enable this to get data from the api
-      return $http.get('/api/user/topactivities');
+      return $http.get(utilService.getApiUrl('/user/topactivities'));
     };
 
     return {

@@ -27,7 +27,7 @@
 
   'use strict';
 
-  angular.module('cloudlrs').factory('datausesFactory', function($http) {
+  angular.module('cloudlrs').factory('datausesFactory', function(utilService, $http) {
 
     /**
      * Get the different projects that potentially have access to the current user's data
@@ -35,23 +35,23 @@
      * @return {Promise<Project[]>}                              $http promise returning the projects that potentially have access to the current user's data
      */
     var getDataUses = function() {
+      // maps sample data to the dashboard visual
+      // return $http.get('/app/privacydashboard/data/datauses.json');
 
-     // maps sample data to the dashboard visual
-     // return $http.get('/app/privacydashboard/data/datauses.json');
-
-     // enable this to return data from the api
-     return $http.get('/api/user/datauses');
+      // enable this to return data from the api
+      return $http.get(utilService.getApiUrl('/user/datauses'));
     };
 
     /**
      * When a student makes changes on data share for specific projects create a post request to update the records suitably
      *
+     * @param  {Object}              dataUse                     dataUse object the user is interacting with for Opt ins
      * @return {Promise<Project[]>}                              $http promise returning the projects that potentially have access to the current user's data
      */
     var updateDataShare = function(dataUse) {
 
-     // enable this to post and update data share from the api
-     return $http.post('/api/user/datashare', dataUse);
+      // enable this to post and update data share from the api
+      return $http.post(utilService.getApiUrl('/user/datashare'), dataUse);
     };
 
     return {

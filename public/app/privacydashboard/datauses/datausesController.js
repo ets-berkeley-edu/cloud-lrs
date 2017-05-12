@@ -23,38 +23,41 @@
  * ENHANCEMENTS, OR MODIFICATIONS.
  */
 
-( function(angular) {
+ (function(angular) {
 
-    'use strict';
+   'use strict';
 
-    angular.module('cloudlrs').controller('DatausesController', function(datausesFactory, $scope) {
+   angular.module('cloudlrs').controller('DatausesController', function(datausesFactory, $scope) {
 
-      // Variable that will keep track of the project that potentially
-      // have access to the current user's data
-      $scope.dataUses = null;
+     // Variable that will keep track of the project that potentially
+     // have access to the current user's data
+     $scope.dataUses = null;
 
-      /**
-       * Render the projects that potentially have access to the current user's data
-       *
-       * @api private
-       */
-      var renderDataUses = function() {
-        datausesFactory.getDataUses().then(function(dataUses) {
-          $scope.dataUses = dataUses.data;
-        });
-      };
-      /**
-       * Updates student's selection on data share opt-in/opt-out for specific projects.
-       * The datause object is with updated share selection is passed on to the api to process appropriately.
-       *
-       * @api private
-       */
-      $scope.toggleSwitch = function (dataUse) {
-        datausesFactory.updateDataShare(dataUse);
-      };
+     /**
+      * Render the projects that potentially have access to the current user's data
+      *
+      * @return {void}
+      * @api private
+      */
+     var renderDataUses = function() {
+       datausesFactory.getDataUses().then(function(dataUses) {
+         $scope.dataUses = dataUses.data;
+       });
+     };
+     /**
+      * Updates student's selection on data share opt-in/opt-out for specific projects.
+      * The datause object is with updated share selection is passed on to the api to process appropriately.
+      *
+      * @param  {Object}  dataUse  Datause object on which user is interacting
+      * @return {void}
+      * @api private
+      */
+     $scope.toggleSwitch = function(dataUse) {
+       datausesFactory.updateDataShare(dataUse);
+     };
 
-      renderDataUses();
+     renderDataUses();
 
-    });
+   });
 
-  }(window.angular));
+ }(window.angular));

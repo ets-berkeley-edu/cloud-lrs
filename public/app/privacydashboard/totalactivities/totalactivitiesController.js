@@ -23,169 +23,191 @@
  * ENHANCEMENTS, OR MODIFICATIONS.
  */
 
-( function(angular) {
+ (function(angular) {
 
-    'use strict';
+   'use strict';
 
-    angular.module('cloudlrs').controller('TotalactivitiesController', function(totalactivitiesFactory, $filter, $scope) {
+   angular.module('cloudlrs').controller('TotalactivitiesController', function(totalactivitiesFactory, $timeout, $filter, $scope) {
 
-      // Variable that will keep track of the total activities per month for the current user
-      $scope.totalActivities = null;
+     // Variable that will keep track of the total activities per month for the current user
+     $scope.totalActivities = null;
 
-      // Total activities chart configuration
-      $scope.totalActivitiesOptions = {
-        'options' : {
-          'chart' : {
-            'backgroundColor' : 'transparent',
-            'spacing' : [100, 30, 30, 30],
-            'style' : {
-              'fontFamily' : '"Helvetica Neue",Helvetica,Arial,sans-serif',
-            }
-          },
-          'legend' : {
-            'align' : 'left',
-            'floating' : true,
-            'itemStyle' : {
-              'fontWeight' : 400
-            },
-            'verticalAlign' : 'top',
-            'x' : -5,
-            'y' : -80
-          },
-          'tooltip' : {
-            'backgroundColor' : '#FFF',
-            'headerFormat' : '',
-            'pointFormat' : '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b><br/>',
-            'shared' : true
-          }
-        },
-        'title' : {
-          'text' : null
-        },
-        'plotOptions' : {
-          'series' : {
-            'animation' : false
-          }
-        },
-        'xAxis' : {
-          'labels' : {
-            'autoRotation' : [0, -90],
-            'style' : {
-              'cursor' : 'pointer',
-              'fontSize' : '13px'
-            },
-            'useHTML' : true
-          },
-          'lineColor' : '#CCC',
-          'minorTickLength' : 0,
-          'tickLength' : 0
-        },
-        'yAxis' : {
-          'labels' : {
-            'style' : {
-              'cursor' : 'pointer',
-              'fontSize' : '13px'
-            }
-          },
-          'lineColor' : '#CCC',
-          'lineWidth' : 1,
-          'gridLineColor' : '#EEEEEE',
-          'min' : 0,
-          'title' : {
-            'text' : null
-          }
-        },
-        'series' : [{
-          'color' : '#3B7EA1',
-          'marker' : {
-            'lineColor' : null,
-            'lineWidth' : 4,
-            'symbol' : 'circle'
-          },
-          'name' : 'Total activities'
-        }]
-      };
+     // Total activities chart configuration
+     $scope.totalActivitiesOptions = {
+       'chart': {
+         'backgroundColor': 'transparent',
+         'spacing': [100, 30, 30, 30],
+         'width': 1000,
+         'style': {
+           'fontFamily': '"Helvetica Neue",Helvetica,Arial,sans-serif'
+         },
+         'func': function(chart) {
+           $timeout(function() {
+             $('#privacydashboard-totalactivities-chart').css({
+               width: '100%',
+               display: 'block'
+             });
+             chart.reflow();
+           }, 100);
+         }
+       },
+       'legend': {
+         'align': 'left',
+         'floating': true,
+         'itemStyle': {
+           'fontWeight': 400
+         },
+         'verticalAlign': 'top',
+         'x': -5,
+         'y': -80
+       },
+       'tooltip': {
+         'backgroundColor': '#FFF',
+         'headerFormat': '',
+         'pointFormat': '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b><br/>',
+         'shared': true
+       },
+       'title': {
+         'text': null
+       },
+       'credits': {
+         'enabled': false
+       },
+       'plotOptions': {
+         'series': {
+           'animation': false
+         }
+       },
+       'xAxis': {
+         'labels': {
+           'autoRotation': [0, -90],
+           'style': {
+             'cursor': 'pointer',
+             'fontSize': '13px'
+           },
+           'useHTML': true
+         },
+         'lineColor': '#CCC',
+         'minorTickLength': 0,
+         'tickLength': 0
+       },
+       'yAxis': {
+         'labels': {
+           'style': {
+             'cursor': 'pointer',
+             'fontSize': '13px'
+           }
+         },
+         'lineColor': '#CCC',
+         'lineWidth': 1,
+         'gridLineColor': '#EEEEEE',
+         'min': 0,
+         'title': {
+           'text': null
+         }
+       },
+       'series': [{
+         'color': '#3B7EA1',
+         'marker': {
+           'lineColor': null,
+           'lineWidth': 4,
+           'symbol': 'circle'
+         },
+         'name': 'Total activities'
+       }],
+       'responsive': {
+         'rules': [{
+           'condition': {
+             'maxWidth': 900
+           }
+         }]
+       }
+     };
 
-      /**
-       * Get the chart that corresponds to the total activities chart
-       *
-       * @api private
-       */
-      var getChart = function() {
-        var chartIndex = $('#privacydashboard-totalactivities-chart').data('highcharts-chart');
-        return Highcharts.charts[chartIndex];
-      };
+     /**
+      * Get the chart that corresponds to the total activities chart
+      *
+      * @return {void}
+      * @api private
+      */
+     var getChart = function() {
+       var chartIndex = $('#privacydashboard-totalactivities-chart').data('highcharts-chart');
+       return Highcharts.charts[chartIndex];
+     };
 
-      /**
-       * Remove the hover state from all chart segments
-       *
-       * @api private
-       */
-      var removeHoverState = function() {
-        var chart = getChart();
-        for (var i = 0; i < chart.series[0].data.length; i++) {
-          chart.series[0].data[i].setState();
-        }
-        chart.tooltip.hide();
-      };
+     /**
+      * Remove the hover state from all chart segments
+      *
+      * @return {void}
+      * @api private
+      */
+     var removeHoverState = function() {
+       var chart = getChart();
+       for (var i = 0; i < chart.series[0].data.length; i++) {
+         chart.series[0].data[i].setState();
+       }
+       chart.tooltip.hide();
+     };
 
-      /**
-       * Activate the hover state on the total activities chart segment that corresponds to
-       * the screenreader table row that has focus
-       *
-       * @param  {Number}        index            The id of the screenreader total activities table row that has focus
-       *
-       */
-      $scope.screenreaderRowFocus = function(index) {
-        removeHoverState();
-        var chart = getChart();
-        chart.series[0].data[index].setState('hover');
-        chart.tooltip.refresh([chart.series[0].data[index]]);
-      };
+     /**
+      * Activate the hover state on the total activities chart segment that corresponds to
+      * the screenreader table row that has focus
+      *
+      * @param  {Number}        index            The id of the screenreader total activities table row that has focus
+      * @return {void}
+      */
+     $scope.screenreaderRowFocus = function(index) {
+       removeHoverState();
+       var chart = getChart();
+       chart.series[0].data[index].setState('hover');
+       chart.tooltip.refresh([chart.series[0].data[index]]);
+     };
 
-      /**
-       * Remove the hover state from all total activities chart segments when
-       * focus is lost
-       *
-       * @param  {Number}        index            The id of the screenreader total activities table row that has lost focus
-       */
-      $scope.screenreaderRowBlur = function(index) {
-        removeHoverState();
-      };
+     /**
+      * Remove the hover state from all total activities chart segments when
+      * focus is lost
+      *
+      * @param  {Number}        index            The id of the screenreader total activities table row that has lost focus
+      * @return {void}
+      */
+     $scope.screenreaderRowBlur = function(index) {
+       removeHoverState();
+     };
 
-      /**
-       * Render the total activities per month for the current user
-       *
-       * @api private
-       */
-      var renderTotalActivities = function() {
-        totalactivitiesFactory.getTotalActivities().then(function(totalActivities) {
-          $scope.totalActivities = totalActivities.data;
+     /**
+      * Render the total activities per month for the current user
+      *
+      * @api private
+      * @return {void}
+      */
+     var renderTotalActivities = function() {
+       totalactivitiesFactory.getTotalActivities().then(function(totalActivities) {
+         $scope.totalActivities = totalActivities.data;
 
-          // Convert the provided total activity numbers to a format readable by Highcharts
-          $scope.totalActivitiesOptions.xAxis.categories = _.map($scope.totalActivities, 'period');
+         // Convert the provided total activity numbers to a format readable by Highcharts
+         $scope.totalActivitiesOptions.xAxis.categories = _.map($scope.totalActivities, 'period');
 
-          // TODO : Remove the ! condition for production.
-          // Current is a boolean denoting if the semester is current or not. Historical data is used for development purposes
-          // Hence checking for current always renders false. Hence using the ! condition to negate it.
+         // TODO : Remove the ! condition for production.
+         // Current is a boolean denoting if the semester is current or not. Historical data is used for development purposes
+         // Hence checking for current always renders false. Hence using the ! condition to negate it.
 
-          // Change the current month to a dotted line
-          if (!$scope.totalActivities[$scope.totalActivities.length - 1].current) {
-            $scope.totalActivitiesOptions.series[0].zoneAxis = 'x';
-            $scope.totalActivitiesOptions.series[0].zones = [{
-              'value' : $scope.totalActivities.length - 2
-            }, {
-              'dashStyle' : 'dot'
-            }];
-          }
+         // Change the current month to a dotted line
+         if ($scope.totalActivities[$scope.totalActivities.length - 1].current) {
+           $scope.totalActivitiesOptions.series[0].zoneAxis = 'x';
+           $scope.totalActivitiesOptions.series[0].zones = [{
+             'value': $scope.totalActivities.length - 2
+           }, {
+             'dashStyle': 'dot'
+           }];
+         }
+         $timeout(function() {
+           $scope.totalActivitiesOptions.series[0].data = _.map($scope.totalActivities, 'total');
+         }, 100);
 
-          $scope.totalActivitiesOptions.series[0].data = _.map($scope.totalActivities, 'total');
-          console.log(_.map($scope.totalActivities, 'total'));
-        });
-      };
+       });
+     };
 
-      renderTotalActivities();
+     renderTotalActivities();
+   });
 
-    });
-
-  }(window.angular));
+ }(window.angular));
