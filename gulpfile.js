@@ -106,7 +106,18 @@ gulp.task('build', function() {
  */
 gulp.task('eslint', function() {
   return gulp
-    .src(['app.js', 'gulpfile.js', 'apache/**/*.js', 'node_modules/lrs-*/**/*.js', 'public/**/*.js', '!public/lib/**/*.js'])
+    .src(['app.js',
+      'gulpfile.js',
+      'apache/**/*.js',
+      'node_modules/lrs-auth/lib/**/*.js',
+      'node_modules/lrs-core/lib/**/*.js',
+      'node_modules/lrs-course/lib/**/*.js',
+      'node_modules/lrs-lti/lib/**/*.js',
+      'node_modules/lrs-statements/lib/**/*.js',
+      'node_modules/lrs-tenant/lib/**/*.js',
+      'node_modules/lrs-users/lib/**/*.js',
+      'public/**/*.js',
+      '!public/lib/**/*.js'])
     .pipe(eslint())
     // Output results to console. Alternatively, use eslint.formatEach().
     .pipe(eslint.format())
