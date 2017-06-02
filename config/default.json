@@ -18,6 +18,7 @@
     "port": 5432,
     "dropOnStartup": false,
     "version": "9.3.14",
+    "ssl": true,
     "sync": true
   },
   "log": {
