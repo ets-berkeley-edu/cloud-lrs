@@ -1,7 +1,6 @@
 # Cloud-LRS
 
-Cloud-LRS is a Learning Record Store, a central place for collecting and storing interoperable Learning Activities from multiple campus systems.
-It can store statements in compliance with xAPI and IMS Caliper formats.
+Cloud-LRS is a Learning Record Store, a central place for collecting and storing interoperable Learning Activities from multiple campus systems. It can store statements in compliance with xAPI(v1.0) and IMS Caliper(v1.1) formats.
 
 ### PostgreSQL
 
@@ -20,18 +19,12 @@ postgres -D /usr/local/var/postgres
 ```
 
 # Create a database and user
+
 ```
 psql template1
 CREATE USER cloudlrs WITH PASSWORD 'cloudlrs';
 CREATE DATABASE cloudlrs;
 GRANT ALL PRIVILEGES ON DATABASE cloudlrs TO cloudlrs;
-```
-
-# Create a tenant & write credentials for tenant app.
-
-```
-insert into tenants values(<tenant-id>,'<tenant-name>', '<key>', '<secret>', now(), now());
-insert into write_credentials values(<id>,'<app-name>','<key>','<secret>',now(), now(),<tenant-id>);
 ```
 
 ### Cloud-LRS - Local Deployment
@@ -50,7 +43,7 @@ git clone git://github.com/ets-berkeley-edu/cloud-lrs.git
 
 Ensure you have the following packages installed and available in your `$PATH`:
 
-  * Node.JS(v6.2.2) and NPM
+  * Node.JS(v6.9.1) and NPM
   * npm install -g bower
 
 ## Install Node modules in package.json
@@ -59,6 +52,11 @@ Ensure you have the following packages installed and available in your `$PATH`:
 npm install
 bower install
 ```
+Cloud-lrs references caliper-js sensor code for Caliper statement validation. Caliper v1.1 is not available for public release yet from IMS. Download and manually add caliper-js-develop from IMS private repo as an npm dependency using the following command.
+
+```
+npm install /path/to/caliper-js
+```
 
 # Run Cloud-LRS. The LRS starts listening on port 2000.
 
@@ -66,6 +64,13 @@ bower install
 node app
 ```
 
+# Create a tenant & write credentials for tenant app after successful node deployment.
+
+```
+insert into tenants values(<tenant-id>, '<tenant_api_domain>', '<tenant-name>', '<tenant_api_key>', '<lti_key>', '<lti_secret>', <ssl = false>, '<logo>', now(), now());
+
+insert into write_credentials values(<id>, '<app-name>', '<key>', '<secret>', now(), now(), <tenant-id>);
+```
 
 # Deploying Cloud-LRS using Apache
 
@@ -96,6 +101,9 @@ sudo apachectl restart
 ## Deployment script
 Cloud-LRS contains a deployment script that can be used to deploy the latest code. The script installs all dependencies in package json, generates static assets and drops it under /public folder. By default the DOCUMENT_ROOT is set to /var/www/html/ and the static assets are dropped into the folder.
 
+Update the paths in deploy/start.sh  for caliper-js-develop dependency and LOG_DIR for forever logs.
+
+
 To start Cloud-LRS app server
 
 ```
@@ -110,16 +118,13 @@ To stop Cloud-LRS app server
 
 ## Privacy Dashboard
 
-The privacy dashboard can be accessed using the URL
+The privacy dashboard can be accessed via an LTI launch on Canvas. Add Privacy dashboard as an LTI tool using Launch URL specified below, lti_key and lti_secret available in the tenants table.
 
 ```
-http://localhost/privacydashboard
+http://localhost/lti/privacydashboard.xml
 ```
 
-## Learning Statements (currently in xAPI format).
-The LRS uses Basic Authentication and accepts Learning statements using POST and PUT methods.
+## Learning Statements (currently in xAPI and Caliper format).
+The LRS uses Basic Authentication and accepts Learning statements using cloudlrs-ingest-microservice.
 
-```
-http://localhost/api/statements
-```
-The xAPI statements are validated using https://github.com/nicolaasmatthijs/xapi-validator before incorporating into the LRS.
+The xAPI statements are validated using https://github.com/ets-berkeley-edu/xapi-validator.git before incorporating into the LRS.

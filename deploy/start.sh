@@ -8,6 +8,8 @@ LOG_DIR= ~/logs
 
 npm install -g bower
 
+npm install </path/to/caliper-js-develop>
+
 npm install
 
 bower install
