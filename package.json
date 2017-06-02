@@ -64,7 +64,7 @@
     "swig": "latest",
     "tincanjs": "0.50.0",
     "uuid": "3.0.1",
-    "xapi-validator": "https://github.com/ets-berkeley-edu/xapi-validator.git",
+    "xapi-validator": "git@github.com:ets-berkeley-edu/xapi-validator.git",
     "yargs": "7.0.2"
   },
   "engines": {
