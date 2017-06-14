@@ -31,7 +31,6 @@ var es = require('event-stream');
 var filter = require('gulp-filter');
 var fs = require('fs');
 var gulp = require('gulp');
-var imagemin = require('gulp-imagemin');
 var eslint = require('gulp-eslint');
 var minifyHtml = require('gulp-htmlmin');
 var mocha = require('gulp-mocha');
@@ -42,8 +41,6 @@ var runSequence = require('run-sequence');
 var templateCache = require('gulp-angular-templatecache');
 var uglify = require('gulp-uglify');
 var usemin = require('gulp-usemin');
-var appendData = require('gulp-append-data');
-var consolidate = require('gulp-consolidate');
 
 /**
  * Delete the build directory
