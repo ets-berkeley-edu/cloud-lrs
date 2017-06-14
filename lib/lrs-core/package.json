@@ -1,0 +1,4 @@
+{
+  "main": "./api.js",
+  "name": "lrs-core"
+}

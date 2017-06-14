@@ -109,7 +109,7 @@ gulp.task('eslint', function() {
       'node_modules/lrs-auth/lib/**/*.js',
       'node_modules/lrs-core/lib/**/*.js',
       'node_modules/lrs-course/lib/**/*.js',
-      'node_modules/lrs-lti/lib/**/*.js',
+      // 'node_modules/lrs-lti/lib/**/*.js',
       'node_modules/lrs-statements/lib/**/*.js',
       'node_modules/lrs-tenant/lib/**/*.js',
       'node_modules/lrs-users/lib/**/*.js',
