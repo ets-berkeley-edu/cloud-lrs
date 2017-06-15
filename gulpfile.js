@@ -23,80 +23,12 @@
  * ENHANCEMENTS, OR MODIFICATIONS.
  */
 
-var addsrc = require('gulp-add-src');
-var csslint = require('gulp-csslint');
-var cssmin = require('gulp-cssmin');
-var del = require('del');
 var es = require('event-stream');
 var filter = require('gulp-filter');
 var fs = require('fs');
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
-var minifyHtml = require('gulp-htmlmin');
 var mocha = require('gulp-mocha');
-var ngAnnotate = require('gulp-ng-annotate');
-var rev = require('gulp-rev');
-var revReplace = require('gulp-rev-replace');
-var runSequence = require('run-sequence');
-var templateCache = require('gulp-angular-templatecache');
-var uglify = require('gulp-uglify');
-var usemin = require('gulp-usemin');
-
-/**
- * Delete the build directory
- */
-gulp.task('clean', function(cb) {
-  del([ 'target/*' ]).then(function() {
-    return cb();
-  });
-});
-
-/**
- * Copy the fonts to the build directory
- */
-gulp.task('copyFonts', function() {
-  return gulp.src('public/lib/fontawesome/fonts/*')
-    .pipe(gulp.dest('target/fonts/'));
-});
-
-/**
- * Minify the HTML, CSS and JS assets
- */
-gulp.task('minify', function() {
-  var pipelines = {
-    'css': [cssmin({'keepSpecialComments': 0}), rev()],
-    'html': [ minifyHtml({'empty': true}) ],
-
-    // We need to register 2 pipelines with usemin as it's not able to re-use a pipeline
-    // for multiple result files
-    'vendor': [ngAnnotate(), uglify(), rev()],
-    'app': [ngAnnotate(), uglify(), rev()],
-
-    // Unfortunately, usemin has no way to determine the HTML partials from the index.html file.
-    // We have to explicitly specify a matching glob here. All HTML partials matching the glob
-    // will be returned and written to the templateCache.js
-    'templateCache': [
-      addsrc('public/app/**/*.html'),
-      templateCache('/static/templateCache.js', {
-        'module': 'cloudlrs.templates',
-        'root': '/app',
-        'standalone': true
-      }),
-      rev()
-    ]
-  };
-
-  return gulp.src('./public/index.html')
-    .pipe(usemin(pipelines))
-    .pipe(gulp.dest('target'));
-});
-
-/**
- * Create a build
- */
-gulp.task('build', function() {
-  return runSequence('clean', ['copyFonts', 'minify']);
-});
 
 /**
  * Run the ESLint code style linter
@@ -105,36 +37,18 @@ gulp.task('eslint', function() {
   return gulp
     .src(['app.js',
       'gulpfile.js',
+      'index.js',
       'apache/**/*.js',
-      'node_modules/lrs-auth/lib/**/*.js',
-      'node_modules/lrs-core/lib/**/*.js',
-      'node_modules/lrs-course/lib/**/*.js',
-      // 'node_modules/lrs-lti/lib/**/*.js',
-      'node_modules/lrs-statements/lib/**/*.js',
-      'node_modules/lrs-tenant/lib/**/*.js',
-      'node_modules/lrs-users/lib/**/*.js',
-      'public/**/*.js',
-      '!public/lib/**/*.js'])
+      'lib/lrs-auth/**/*.js',
+      'lib/lrs-core/**/*.js',
+      'lib/lrs-course/**/*.js',
+      'lib/lrs-statements/**/*.js',
+      'lib/lrs-tenant/**/*.js',
+      'lib/lrs-users/**/*.js'])
     .pipe(eslint())
     // Output results to console. Alternatively, use eslint.formatEach().
     .pipe(eslint.format())
     // To have the process exit with an error code (1) on
     // lint error, return the stream and pipe to failAfterError last.
     .pipe(eslint.failAfterError());
-});
-
-/**
- * Run the CSS code style linter
- */
-gulp.task('csslint', function() {
-  return gulp
-    .src(['public/**/*.css', '!public/lib/**/*.css'])
-    .pipe(csslint({
-      'adjoining-classes': false,
-      'box-model': false,
-      'ids': false,
-      'overqualified-elements': false,
-      'qualified-headings': false
-    }))
-    .pipe(csslint.formatter());
 });
