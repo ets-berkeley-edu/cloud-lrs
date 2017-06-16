@@ -25,9 +25,9 @@
  * ENHANCEMENTS, OR MODIFICATIONS.
  */
 
-var CloudLRS = require('lrs-core');
+var CloudLRS = require('./lib/lrs-core');
 
-var log = require('lrs-core/lib/logger')('app');
+var log = require('./lib/lrs-core/logger')('app');
 
 // Initialize the app server
 CloudLRS.init(function(err) {

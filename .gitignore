@@ -10,9 +10,6 @@ development/statements.txt
 apache/cloudlrs.conf
 
 node_modules/*
-!node_modules/lrs-*
-
-public/lib
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
