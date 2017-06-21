@@ -1,0 +1,11 @@
+{
+  "db": {
+    "database": "cloudlrstest",
+    "username": "cloudlrstest",
+    "password": "cloudlrs",
+    "host": "localhost",
+    "port": 5432,
+    "dropOnStartup": true,
+    "ssl": false
+  }
+}

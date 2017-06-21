@@ -3,7 +3,7 @@
 
 config/*
 !config/default.json
-!config/test.js
+!config/test.json
 !config/travis.js
 
 development/statements.txt

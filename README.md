@@ -24,6 +24,12 @@ postgres -D /usr/local/var/postgres
 createuser cloudlrs --pwprompt   # The default config assumes the password "cloudlrs"
 createdb cloudlrs --owner=cloudlrs
 ```
+# ... and a test database and user
+
+```
+createuser cloudlrstest --pwprompt   # The default config assumes the password "cloudlrs"
+createdb cloudlrstest --owner=cloudlrstest
+```
 
 ### Cloud LRS - Local Deployment
 
