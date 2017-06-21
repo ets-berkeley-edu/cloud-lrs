@@ -26,8 +26,7 @@
  */
 
 var CloudLRS = require('./lib/lrs-core');
-
-var log = require('./lib/lrs-core/logger')('app');
+var log = CloudLRS.logger('app');
 
 // Initialize the app server
 CloudLRS.init(function(err) {
