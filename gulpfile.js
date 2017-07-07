@@ -24,7 +24,6 @@
  */
 
 var es = require('event-stream');
-var filter = require('gulp-filter');
 var fs = require('fs');
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
