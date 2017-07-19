@@ -73,7 +73,8 @@ node app
 ```
 insert into tenants values(<tenant-id>, '<tenant_api_domain>', '<tenant-name>', '<tenant_api_key>', '<lti_key>', '<lti_secret>', <ssl = false>, '<logo>', now(), now());
 
-insert into write_credentials values(<id>, '<app-name>', '<key>', '<secret>', now(), now(), <tenant-id>);
+insert into credentials values(<id>, '<app-name>', '<description>', '<key>', '<secret>', '<anonymous-flag>', '<read_permission-flag>', '<write_permission-flag>', '<datashare-flag>', now(), now(), <tenant-id>);
+
 ```
 
 # Deploying Cloud LRS using Apache
