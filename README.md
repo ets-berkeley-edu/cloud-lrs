@@ -18,17 +18,27 @@ brew install postgresql
 postgres -D /usr/local/var/postgres
 ```
 
-# Create a database and user
-
+# Create a database and user from schema.sql
 ```
-createuser cloudlrs --pwprompt   # The default config assumes the password "cloudlrs"
+dropdb cloudlrs
+createuser cloudlrs --pwprompt          # The default config assumes the password "cloudlrs"
 createdb cloudlrs --owner=cloudlrs
+
+psql -d cloudlrs -f config/schema.sql   # recreate DB from schema.sql
 ```
 # ... and a test database and user
 
 ```
 createuser cloudlrstest --pwprompt   # The default config assumes the password "cloudlrs"
 createdb cloudlrstest --owner=cloudlrstest
+```
+
+# Taking DB backups & restore
+```
+pg_dump -d cloudlrs > schema.sql    # for text file
+pg_dump -Fc cloudlrs > db.dump      # for pg compliant
+
+pg_restore -d cloudlrs db.dump      # recreate it from dump file
 ```
 
 ### Cloud LRS - Local Deployment
@@ -119,14 +129,6 @@ To stop Cloud LRS app server
 
 ```
 ./deploy/stop.sh
-```
-
-## Privacy Dashboard
-
-The privacy dashboard can be accessed via an LTI launch on Canvas. Add Privacy dashboard as an LTI tool using Launch URL specified below, lti_key and lti_secret available in the tenants table.
-
-```
-http://localhost/lti/privacydashboard.xml
 ```
 
 ## Learning Statements (currently in xAPI and Caliper format).
