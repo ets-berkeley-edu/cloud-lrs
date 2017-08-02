@@ -6,6 +6,7 @@
     "host": "localhost",
     "port": 5432,
     "dropOnStartup": true,
+    "sync": true,
     "ssl": false
   }
 }

@@ -30,45 +30,6 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: courses; Type: TABLE; Schema: public; Owner: cloudlrs; Tablespace:
---
-
-CREATE TABLE courses (
-    id integer NOT NULL,
-    canvas_course_id integer NOT NULL,
-    name character varying(255),
-    privacydashboard_url character varying(255),
-    active boolean DEFAULT true NOT NULL,
-    created_at timestamp with time zone NOT NULL,
-    updated_at timestamp with time zone NOT NULL,
-    tenant_id integer NOT NULL
-);
-
-
-ALTER TABLE public.courses OWNER TO cloudlrs;
-
---
--- Name: courses_id_seq; Type: SEQUENCE; Schema: public; Owner: cloudlrs
---
-
-CREATE SEQUENCE courses_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.courses_id_seq OWNER TO cloudlrs;
-
---
--- Name: courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cloudlrs
---
-
-ALTER SEQUENCE courses_id_seq OWNED BY courses.id;
-
-
---
 -- Name: credentials; Type: TABLE; Schema: public; Owner: cloudlrs; Tablespace:
 --
 
@@ -155,11 +116,7 @@ ALTER TABLE public.statements OWNER TO cloudlrs;
 
 CREATE TABLE tenants (
     id integer NOT NULL,
-    tenant_api_domain character varying(255) NOT NULL,
-    api_key character varying(255) NOT NULL,
     name character varying(255) NOT NULL,
-    use_https boolean DEFAULT true,
-    logo character varying(255),
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL
 );
@@ -229,13 +186,6 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: cloudlrs
 --
 
-ALTER TABLE ONLY courses ALTER COLUMN id SET DEFAULT nextval('courses_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: cloudlrs
---
-
 ALTER TABLE ONLY credentials ALTER COLUMN id SET DEFAULT nextval('credentials_id_seq'::regclass);
 
 
@@ -251,21 +201,6 @@ ALTER TABLE ONLY tenants ALTER COLUMN id SET DEFAULT nextval('tenants_id_seq'::r
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
-
-
---
--- Data for Name: courses; Type: TABLE DATA; Schema: public; Owner: cloudlrs
---
-
-COPY courses (id, canvas_course_id, name, privacydashboard_url, active, created_at, updated_at, tenant_id) FROM stdin;
-\.
-
-
---
--- Name: courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cloudlrs
---
-
-SELECT pg_catalog.setval('courses_id_seq', 1, false);
 
 
 --
@@ -330,14 +265,6 @@ SELECT pg_catalog.setval('users_id_seq', 1, false);
 
 
 --
--- Name: courses_pkey; Type: CONSTRAINT; Schema: public; Owner: cloudlrs; Tablespace:
---
-
-ALTER TABLE ONLY courses
-    ADD CONSTRAINT courses_pkey PRIMARY KEY (id);
-
-
---
 -- Name: credentials_key_key; Type: CONSTRAINT; Schema: public; Owner: cloudlrs; Tablespace:
 --
 
@@ -399,14 +326,6 @@ ALTER TABLE ONLY tenants
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: courses_tenant_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: cloudlrs
---
-
-ALTER TABLE ONLY courses
-    ADD CONSTRAINT courses_tenant_id_fkey FOREIGN KEY (tenant_id) REFERENCES tenants(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
