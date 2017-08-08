@@ -230,6 +230,7 @@ describe('Tests against running server', function() {
       var newUser = randomstring.generate({charset: 'numeric', length: 10});
       var sourceCredential = testData.sourceCredential;
       var consumerCredential = testData.consumerCredential;
+      var consumerDataUseSetting;
       async.waterfall([
         function(callback) {
           // Test our assumption that the user is not yet defined in the DB.
@@ -246,15 +247,15 @@ describe('Tests against running server', function() {
         },
         function(res, callback) {
           // Check that we find the expected potential data consumer.
-          var theConsumer = res.body[0];
-          theConsumer.name.should.equal(consumerCredential.name);
+          consumerDataUseSetting = res.body[0];
+          consumerDataUseSetting.name.should.equal(consumerCredential.name);
 
           // Pretend that the user would prefer not to be consumed.
-          theConsumer.share = false;
+          consumerDataUseSetting.share = false;
           request(server)
             .post(apiPath('/datashare', newUser))
             .auth(sourceCredential.key, sourceCredential.secret)
-            .send(theConsumer)
+            .send(consumerDataUseSetting)
             .expect(200, callback);
         },
         function(res, callback) {
@@ -275,11 +276,11 @@ describe('Tests against running server', function() {
         },
         function(res, callback) {
           // Pretend that the user now welcomes assimilation.
-          theConsumer.share = true;
+          consumerDataUseSetting.share = true;
           request(server)
             .post(apiPath('/datashare', newUser))
             .auth(sourceCredential.key, sourceCredential.secret)
-            .send(theConsumer)
+            .send(consumerDataUseSetting)
             .expect(200, callback);
         },
         function(res, callback) {
@@ -290,6 +291,7 @@ describe('Tests against running server', function() {
             .expect(200, callback);
         }
       ], function(err, result) {
+        should.not.exist(err);
         return done();
       });
     });
