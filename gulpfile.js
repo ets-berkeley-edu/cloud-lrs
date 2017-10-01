@@ -23,31 +23,56 @@
  * ENHANCEMENTS, OR MODIFICATIONS.
  */
 
-var es = require('event-stream');
-var fs = require('fs');
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var mocha = require('gulp-mocha');
+var runSequence = require('run-sequence');
+var yargs = require('yargs');
 
 /**
  * Run the ESLint code style linter
  */
 gulp.task('eslint', function() {
   return gulp
-    .src(['app.js',
-      'gulpfile.js',
-      'index.js',
-      'apache/**/*.js',
-      'lib/lrs-auth/**/*.js',
-      'lib/lrs-core/**/*.js',
-      'lib/lrs-course/**/*.js',
-      'lib/lrs-statements/**/*.js',
-      'lib/lrs-tenant/**/*.js',
-      'lib/lrs-users/**/*.js'])
+    .src(['*.js', 'apache/**/*.js', 'lib/**/*.js'])
     .pipe(eslint())
-    // Output results to console. Alternatively, use eslint.formatEach().
     .pipe(eslint.format())
-    // To have the process exit with an error code (1) on
-    // lint error, return the stream and pipe to failAfterError last.
     .pipe(eslint.failAfterError());
+});
+
+/**
+ * Run Mocha tests
+ */
+gulp.task('mocha', function() {
+  // Use default environment if none is specified
+  process.env.NODE_ENV = process.env.NODE_ENV || 'test';
+
+  return gulp
+    .src([ 'test/**/*.js' ])
+    .pipe(mocha({
+      fullStackTrace: true,
+      grep: process.env.MOCHA_GREP || yargs.argv.grep,
+      timeout: 10000
+    }))
+    .once('end', function() {
+      process.exit();
+    });
+});
+
+/**
+ * Run tests and linters on dev workstation
+ */
+gulp.task('test', function() {
+  process.env.NODE_ENV = 'test';
+
+  runSequence('eslint', 'mocha');
+});
+
+/**
+ * Travis CI
+ */
+gulp.task('travis', function() {
+  process.env.NODE_ENV = 'test';
+
+  runSequence('eslint', 'mocha');
 });

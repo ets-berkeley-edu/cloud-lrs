@@ -28,12 +28,11 @@
 var config = require('config');
 var es = require('event-stream');
 var fs = require('fs');
-var stream = require('stream');
 var tincan = require('tincanjs');
 var util = require('util');
 var argv = require('yargs')
   .usage('Usage: $0 --key --secret [--number]')
-  .demand(['k','s'])
+  .demand(['k', 's'])
   .alias('k', 'key')
   .describe('k', 'The write credential key to ingest the learning activity statement with')
   .alias('s', 'secret')
@@ -51,11 +50,13 @@ var secret = argv.secret;
 
 // Configure the statement utility
 var tincanStorage = new tincan({
-  'recordStores': [{
-    'endpoint': util.format('http://localhost:%s/api', config.get('app.port')),
-    'username': key,
-    'password': secret
-  }]
+  recordStores: [
+    {
+      endpoint: util.format('http://localhost:%s/api', config.get('app.port')),
+      username: key,
+      password: secret
+    }
+  ]
 });
 
 // Keep track of how many statements have been ingested
@@ -64,47 +65,47 @@ var ingested = 0;
 // Read the file with sample statements line by line
 var s = fs.createReadStream(__dirname + '/statements.txt')
   .pipe(es.split())
-  .pipe(es.mapSync(function(line){
+  .pipe(es.mapSync(
+    function(line) {
 
-    // Pause the readstream
-    s.pause();
+      // Pause the readstream
+      s.pause();
 
-    // Parse the line
-    var statement = null;
-    try {
-      statement = JSON.parse(line);
-    } catch (err) {
-      console.log('Unable to parse a learning activity statement');
-      console.log(line);
-      return s.resume();
-    }
-
-    tincanStorage.sendStatement(statement, function(response, body) {
-      var err = null;
-      if (response[0].err) {
-        console.log('Unable to ingest learning activity statement');
-        console.log(response[0].xhr.response);
+      // Parse the line
+      var statement = null;
+      try {
+        statement = JSON.parse(line);
+      } catch (err) {
+        console.log('Unable to parse a learning activity statement');
+        console.log(line);
+        return s.resume();
       }
 
-      ingested++;
-      if (ingested % 10 === 0) {
-        console.log('Ingested ' + ingested + ' learning activity statements');
-      }
+      tincanStorage.sendStatement(statement, function(response, body) {
+        var err = null;
+        if (response[0].err) {
+          console.log('Unable to ingest learning activity statement');
+          console.log(response[0].xhr.response);
+        }
 
-      // Resume the readstream if the maximum number of statements hasn't been
-      // reached yet
-      if (!number || ingested < number) {
-        s.resume();
-      } else {
-        s.end();
-      }
-    });
+        ingested++;
+        if (ingested % 10 === 0) {
+          console.log('Ingested ' + ingested + ' learning activity statements');
+        }
 
-  })
-  .on('error', function(){
-    console.log('Error while reading sample statements');
-  })
-  .on('end', function(){
-    console.log('Finished ingesting sample statements');
-  })
-);
+        // Resume the readstream if the maximum number of statements hasn't been
+        // reached yet
+        if (!number || ingested < number) {
+          s.resume();
+        } else {
+          s.end();
+        }
+      });
+    })
+    .on('error', function() {
+      console.log('Error while reading sample statements');
+    })
+    .on('end', function() {
+      console.log('Finished ingesting sample statements');
+    })
+  );
