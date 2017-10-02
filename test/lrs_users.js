@@ -226,7 +226,7 @@ describe('Tests against running server', function() {
   });
 
   describe('opt-out', function() {
-    it('supports opt-outs from same tenant even when user is not yet known', function (done) {
+    it('supports opt-outs from same tenant even when user is not yet known', function(done) {
       var newUser = randomstring.generate({charset: 'numeric', length: 10});
       var sourceCredential = testData.sourceCredential;
       var consumerCredential = testData.consumerCredential;

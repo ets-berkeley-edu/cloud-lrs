@@ -1,0 +1,21 @@
+sudo: required
+language: node_js
+node_js:
+  - "6.10.0"
+
+addons:
+  postgresql: "9.6"
+
+before_install:
+  - cd ${TRAVIS_BUILD_DIR}
+
+  # Configure postgres
+  - psql -c 'create database cloudlrstest;' -U postgres
+  - psql cloudlrstest -c 'create extension pg_trgm;' -U postgres
+  - psql cloudlrstest -c 'create role cloudlrstest superuser login; alter schema public owner to cloudlrstest;' -U postgres
+
+  # Set API key for caliper-js access on Github
+  - echo -e "machine github.com\n  login $CALIPER_JS_ACCESS_TOKEN" >> ~/.netrc
+
+script:
+  - node_modules/.bin/gulp travis

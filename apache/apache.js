@@ -37,9 +37,9 @@ fs.readFile(__dirname + '/cloudlrs.template', 'utf8', function(err, template) {
 
   // Generate the Apache config file
   var templateData = {
-    'documentRoot': config.get('apache.documentRoot'),
-    'logDirectory': config.get('apache.logDirectory'),
-    'port': config.get('app.port')
+    documentRoot: config.get('apache.documentRoot'),
+    logDirectory: config.get('apache.logDirectory'),
+    port: config.get('app.port')
   };
 
   var templateOutput = _.template(template)(templateData);

@@ -31,7 +31,7 @@ var log = CloudLRS.logger('app');
 // Initialize the app server
 CloudLRS.init(function(err) {
   if (err) {
-    return log.error({'err': err}, 'An error has occured while starting the Cloud LRS');
+    return log.error({err: err}, 'An error has occured while starting the Cloud LRS');
   }
 
   log.info('Cloud LRS has started. Brace yourself for awesomeness');
