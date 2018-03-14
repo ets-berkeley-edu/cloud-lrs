@@ -17,7 +17,7 @@
     "host": "localhost",
     "port": 5432,
     "dropOnStartup": false,
-    "version": "9.4.9",
+    "version": "9.6.2",
     "ssl": false,
     "sync": true
   },
