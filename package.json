@@ -34,7 +34,7 @@
     "joi": "10.4.1",
     "lodash": "4.17.4",
     "mime": "1.3.4",
-    "moment": "2.18.1",
+    "moment": "2.19.3",
     "moment-timezone": "0.5.13",
     "nan": "2.5.1",
     "oauth": "0.9.15",
@@ -63,6 +63,6 @@
     "test": "gulp test"
   },
   "engines": {
-    "node": "6.10.0"
+    "node": "6.11.5"
   }
 }
