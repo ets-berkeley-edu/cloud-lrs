@@ -31,7 +31,7 @@
     "gulp": "3.9.1",
     "ims-lti": "3.0.2",
     "joi": "10.4.1",
-    "lodash": "4.17.4",
+    "lodash": "4.17.10",
     "mime": "1.4.1",
     "moment": "2.19.3",
     "moment-timezone": "0.5.13",
@@ -59,7 +59,7 @@
     "supertest": "3.0.0"
   },
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test "
   },
   "engines": {
     "node": "6.14.3"
