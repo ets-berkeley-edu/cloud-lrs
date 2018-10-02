@@ -43,6 +43,7 @@ CREATE TABLE credentials (
     read_permission boolean DEFAULT false NOT NULL,
     write_permission boolean DEFAULT false NOT NULL,
     datashare boolean DEFAULT false NOT NULL,
+    sqs_url character varying(255),
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL,
     tenant_id integer NOT NULL
@@ -92,7 +93,7 @@ ALTER TABLE public.opt_outs OWNER TO cloudlrs;
 
 CREATE TABLE statements (
     uuid character varying(255) NOT NULL,
-    statement json NOT NULL,
+    statement character varying(65000) NOT NULL,
     verb character varying(255) NOT NULL,
     "timestamp" timestamp with time zone NOT NULL,
     activity_type character varying(255) NOT NULL,
@@ -117,6 +118,7 @@ ALTER TABLE public.statements OWNER TO cloudlrs;
 CREATE TABLE tenants (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
+    description character varying(255),
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL
 );
@@ -207,7 +209,7 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 -- Data for Name: credentials; Type: TABLE DATA; Schema: public; Owner: cloudlrs
 --
 
-COPY credentials (id, name, description, key, secret, anonymous, read_permission, write_permission, datashare, created_at, updated_at, tenant_id) FROM stdin;
+COPY credentials (id, name, description, key, secret, anonymous, read_permission, write_permission, datashare, sqs_url, created_at, updated_at, tenant_id) FROM stdin;
 \.
 
 
@@ -238,7 +240,7 @@ COPY statements (uuid, statement, verb, "timestamp", activity_type, actor_type, 
 -- Data for Name: tenants; Type: TABLE DATA; Schema: public; Owner: cloudlrs
 --
 
-COPY tenants (id, tenant_api_domain, api_key, name, use_https, logo, created_at, updated_at) FROM stdin;
+COPY tenants (id, name, description, created_at, updated_at) FROM stdin;
 \.
 
 
@@ -279,13 +281,12 @@ ALTER TABLE ONLY credentials
 ALTER TABLE ONLY credentials
     ADD CONSTRAINT credentials_pkey PRIMARY KEY (id);
 
-
 --
 -- Name: credentials_secret_key; Type: CONSTRAINT; Schema: public; Owner: cloudlrs; Tablespace:
 --
-
 ALTER TABLE ONLY credentials
     ADD CONSTRAINT credentials_secret_key UNIQUE (secret);
+
 
 
 --
@@ -310,14 +311,6 @@ ALTER TABLE ONLY statements
 
 ALTER TABLE ONLY tenants
     ADD CONSTRAINT tenants_pkey PRIMARY KEY (id);
-
-
---
--- Name: tenants_tenant_api_domain_key; Type: CONSTRAINT; Schema: public; Owner: cloudlrs; Tablespace:
---
-
-ALTER TABLE ONLY tenants
-    ADD CONSTRAINT tenants_tenant_api_domain_key UNIQUE (tenant_api_domain);
 
 
 --
@@ -385,12 +378,12 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: sandeep
+-- Name: public; Type: ACL; Schema: -; Owner: cloudlrs
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM sandeep;
-GRANT ALL ON SCHEMA public TO sandeep;
+REVOKE ALL ON SCHEMA public FROM cloudlrs;
+GRANT ALL ON SCHEMA public TO cloudlrs;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
