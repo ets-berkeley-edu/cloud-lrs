@@ -72,6 +72,11 @@ Cloud LRS references caliper-js sensor code for Caliper statement validation. Ca
 npm install /path/to/caliper-js
 ```
 
+# Run test-suite
+```
+./node_modules/.bin/gulp test
+```
+
 # Run Cloud LRS. The LRS starts listening on port 2000.
 
 ```
