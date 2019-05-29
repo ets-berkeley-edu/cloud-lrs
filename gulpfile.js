@@ -26,28 +26,28 @@
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var mocha = require('gulp-mocha');
-var runSequence = require('run-sequence');
 var yargs = require('yargs');
 
 /**
  * Run the ESLint code style linter
  */
-gulp.task('eslint', function() {
-  return gulp
+gulp.task('eslint', function(done) {
+  gulp
     .src(['*.js', 'apache/**/*.js', 'lib/**/*.js'])
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
+  done();
 });
 
 /**
  * Run Mocha tests
  */
-gulp.task('mocha', function() {
+gulp.task('mocha', function(done) {
   // Use default environment if none is specified
   process.env.NODE_ENV = process.env.NODE_ENV || 'test';
 
-  return gulp
+  gulp
     .src([ 'test/**/*.js' ])
     .pipe(mocha({
       fullStackTrace: true,
@@ -57,22 +57,24 @@ gulp.task('mocha', function() {
     .once('end', function() {
       process.exit();
     });
+  done();
 });
 
 /**
  * Run tests and linters on dev workstation
  */
-gulp.task('test', function() {
-  process.env.NODE_ENV = 'test';
 
-  runSequence('eslint', 'mocha');
-});
+gulp.task('test',
+  gulp.series('eslint', 'mocha'),
+  function(done) {
+    done();
+  });
 
 /**
  * Travis CI
  */
-gulp.task('travis', function() {
-  process.env.NODE_ENV = 'test';
-
-  runSequence('eslint', 'mocha');
-});
+gulp.task('travis',
+  gulp.parallel('eslint', 'mocha'),
+  function(done) {
+    done();
+  });
