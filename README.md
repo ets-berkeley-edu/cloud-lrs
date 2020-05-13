@@ -57,7 +57,7 @@ git clone git://github.com/ets-berkeley-edu/cloud-lrs.git
 
 Ensure you have the following packages installed and available in your `$PATH`:
 
-  * Node.JS(v6.14.3) and NPM
+  * Node.JS(v10.20.0) and NPM
   * npm install -g bower
 
 ## Install Node modules in package.json

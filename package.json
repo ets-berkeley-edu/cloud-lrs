@@ -29,13 +29,13 @@
     "event-stream": "3.3.4",
     "express": "^4.17.0",
     "fast-csv": "2.3.1",
-    "forever": "^1.0.0",
+    "forever": "^2.0.0",
     "ims-lti": "3.0.2",
     "joi": "10.4.1",
     "lodash": ">=4.17.13",
     "lodash.template": ">=4.5.0",
-    "mime": "1.4.1",
     "mem": ">=4.0.0",
+    "mime": "1.4.1",
     "moment": "2.19.3",
     "moment-timezone": "0.5.13",
     "nan": "2.5.1",
@@ -44,27 +44,33 @@
     "randomstring": "1.1.5",
     "request": "^2.88.0",
     "restjsdoc": "0.0.7",
-    "sequelize": "6.0.0",
+    "sequelize": "5.21.8",
     "tincanjs": "0.50.0",
     "uuid": "3.0.1",
     "xapi-validator": "git+https://github.com/ets-berkeley-edu/xapi-validator.git",
-    "yargs": "8.0.2"
+    "yargs": "^15.3.1"
   },
   "devDependencies": {
     "ejs": "2.5.5",
-    "eslint": ">=4.18.2",
+    "eslint": "^6.8.0",
     "gulp": "^4.0.2",
-    "gulp-eslint": "4.0.0",
-    "gulp-filter": "5.0.0",
-    "gulp-mocha": "^6.0.0",
-    "mocha": "^6.1.4",
+    "gulp-eslint": "^4.0.0",
+    "gulp-filter": "^6.0.0",
+    "gulp-mocha": "^7.0.2",
+    "mocha": "^7.1.2",
     "should": "11.2.1",
     "supertest": "3.0.0"
   },
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "preinstall": "npx npm-force-resolutions"
   },
   "engines": {
-    "node": "10.16.0"
+    "node": "10.20.0"
+  },
+  "resolutions": {
+    "kind-of": "^6.0.3",
+    "minimist": ">=0.2.1",
+    "yargs-parser": "18.1.3"
   }
 }
