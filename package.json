@@ -28,7 +28,7 @@
     "diff": ">=3.5.0",
     "event-stream": "3.3.4",
     "express": "^4.17.0",
-    "fast-csv": "2.3.1",
+    "fast-csv": "4.3.6",
     "forever": "^2.0.0",
     "ims-lti": "3.0.2",
     "joi": "10.4.1",
